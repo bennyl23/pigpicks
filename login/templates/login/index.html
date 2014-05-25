@@ -1,0 +1,49 @@
+{% extends "pigpicks/base_login.html" %}
+{% load staticfiles %}
+
+{% block logincss %}<link href="{% static 'pigpicks/css/login.css' %}" rel="stylesheet">{% endblock %}
+{% block title %}Pig Picks 5 | Login{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+			<form action="{% url 'login:index' %}" method="post" class="form-signin" role="form">{% csrf_token %}
+				<h3>Sign In</h3>
+				{% if page_warning %}
+					<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+						{{ page_warning }}
+					</div>
+				{% endif %}
+				{% if page_error %}
+					<div class="alert alert-danger page_error" style="margin-top: 10px;">
+						{{ page_error }}
+					</div>
+				{% endif %}
+			    {% for field in form %}
+			    	<div class="form-group {% if field.errors %}has-error{% endif %}">
+			    		{{ field.label_tag }}
+			       		{{ field }}
+						{% for error in field.errors %}
+							<ul class="text-danger" style="padding-left:0px">{{ error }}</ul>
+						{% endfor %}
+			       	</div>
+					{% if field.html_name == 'user_password' %}
+						<div id="forgot_password_container">
+							<a href="{% url 'login:forgot_password' %}">Forgot Password?</a>
+						</div>
+					{% endif %}
+			    {% endfor %}
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+			<div class="well" style="margin-top: 20px;">
+				Not registered?  <a href="{% url 'login:register' %}">Click here</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "pigpicks/base_site.html" %}
+
+{% block title %}Pig Picks 5 | Picks Breakdown{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<ul class="pagination">
+			{% if week.week_number|add:"0" > 1 %}
+				<li>
+					<a href="/league/breakdown/{{ week.week_number|add:"-1" }}/">&laquo;</a>
+				</li>
+			{% endif %}
+			<li><span>Week {{ week.week_number }}</span></li>
+			{% if week.week_number|add:"0" < num_weeks %}
+				<li>
+					<a href="/league/breakdown/{{ week.week_number|add:"1" }}/">&raquo;</a>
+				</li>
+			{% endif %}
+		</ul>
+		{% if page_warning != '' %}
+			<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+				{{ page_warning }}
+			</div>
+		{% endif %}
+		{% if lock_picks %}
+			<table id="week_breakdown_table" class="table table-condensed table-striped">
+				<thead>
+					<tr>
+						<th class="col-xs-8 col-sm-1 cell_border_right">Team</th>
+						<th class="col-xs-4 col-sm-2 cell_border_right">Picked</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for team in teams %}
+						<tr>
+							<td>{{ team.nfl_team_location }} {{ team.nfl_team_name }}</td>
+							<td>{{ team.num_picks }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+{% endblock %}

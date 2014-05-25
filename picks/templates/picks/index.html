@@ -1,0 +1,108 @@
+{% extends "pigpicks/base_site.html" %}
+{% load staticfiles %}
+
+
+{% block title %}Pig Picks 5 | My Picks{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<ul class="pagination">
+			{% if week.week_number|add:"0" > 1 %}
+				<li>
+					<a href="/picks/{{ week.week_number|add:"-1" }}/">&laquo;</a>
+				</li>
+			{% endif %}
+			<li><span>Week {{ week.week_number }}</span></li>
+			{% if week.week_number|add:"0" < num_weeks %}
+				<li>
+					<a href="/picks/{{ week.week_number|add:"1" }}/">&raquo;</a>
+				</li>
+			{% endif %}
+		</ul>
+		{% if page_error != '' %}
+			<div class="alert alert-danger page_error" style="margin-top: 10px;">
+				{{ page_error }}
+			</div>
+		{% endif %}
+		{% if page_warning != '' %}
+			<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+				{{ page_warning }}
+			</div>
+		{% endif %}
+		{% if matchups|length and week.lines_entered %}
+			<div class="row">
+				<div class="col-xs-5" style="text-align:right;">
+					<h5>Favorite</h5>
+				</div>
+				<div class="col-xs-2"></div>
+				<div class="col-xs-5">
+					<h5>Underdog</h5>
+				</div>
+			</div>
+			<form action="{% url 'picks:index' %}" method="post" role="form">{% csrf_token %}
+				<input type="hidden" name="week_number" id="week_number" value="{{ week.week_number }}">
+				{% regroup matchups by game_date as matchup_list %}
+				{% for game_date in matchup_list %}
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							{{ game_date.grouper|date:"D, m/d/y, f a" }}
+						</div>
+						<div class="panel-body">
+							{% for matchup in game_date.list %}
+								<input type="hidden" name="{{ matchup.matchup_id }}" id="{{ matchup.matchup_id }}" value="{{ matchup.nfl_team_id }}">
+								<div class="row matchup {% cycle 'row_odd' 'row_even' %}">
+									{% if matchup.spread < 0 %}
+										<!-- home favorite -->
+										<div class="col-xs-5">
+											<button type="button" class="btn btn-default btn-lg btn-block favorite {{ matchup.home_team_location_short|lower }} {% if matchup.nfl_team_id == matchup.home_team_id %}active{% endif %}" {% if matchup.pick_locked or lock_picks %}disabled="disabled"{% endif %} id="btn{{ matchup.matchup_id }}_1" onclick="togglePickButton('1', {{ matchup.home_team_id }},{{ matchup.matchup_id }})">
+												<h5 class="visible-xs">H</h5>
+												<h4 class="home hidden-xs visible-sm">{{ matchup.home_team_location_short }}</h4>
+												<h4 class="home visible-md visible-lg">{{ matchup.home_team_location|upper }} {{ matchup.home_team_name|upper }}</h4>
+											</button>
+										</div>
+										<div class="col-xs-2 text-center spread">
+											<h6 class="visible-xs">{{ matchup.spread_abs }}</h6>
+											<h4 class="hidden-xs">{{ matchup.spread_abs }}</h4>
+										</div>
+										<!-- away underdog -->
+										<div class="col-xs-5">
+											<button type="button" class="btn btn-default btn-lg btn-block underdog {{ matchup.away_team_location_short|lower }} {% if matchup.nfl_team_id == matchup.away_team_id %}active{% endif %}" {% if matchup.pick_locked or lock_picks %}disabled="disabled"{% endif %} id="btn{{ matchup.matchup_id }}_2" onclick="togglePickButton('2', {{ matchup.away_team_id }},{{ matchup.matchup_id }})">
+												<h4 class="hidden-xs visible-sm">{{ matchup.away_team_location_short }}</h4>
+												<h4 class="visible-md visible-lg">{{ matchup.away_team_location }} {{ matchup.away_team_name }}</h4>
+											</button>
+										</div>
+									{% else %}
+										<!-- away favorite -->
+										<div class="col-xs-5">
+											<button type="button" class="btn btn-default btn-lg btn-block favorite {{ matchup.away_team_location_short|lower }} {% if matchup.nfl_team_id == matchup.away_team_id %}active{% endif %}" {% if matchup.pick_locked or lock_picks %}disabled="disabled"{% endif %} id="btn{{ matchup.matchup_id }}_1" onclick="togglePickButton('1', {{ matchup.away_team_id }},{{ matchup.matchup_id }})">
+												<h4 class="hidden-xs visible-sm">{{ matchup.away_team_location_short }}</h4>
+												<h4 class="visible-md visible-lg">{{ matchup.away_team_location }} {{ matchup.away_team_name }}</h4>
+											</button>
+										</div>
+										<div class="col-xs-2 text-center spread">
+											<h6 class="visible-xs">{{ matchup.spread_abs }}</h6>
+											<h4 class="hidden-xs">{{ matchup.spread_abs }}</h4>
+										</div>
+										<!-- home underdog -->
+										<div class="col-xs-5">
+											<button type="button" class="btn btn-default btn-lg btn-block underdog {{ matchup.home_team_location_short|lower }} {% if matchup.nfl_team_id == matchup.home_team_id %}active{% endif %}" {% if matchup.pick_locked or lock_picks %}disabled="disabled"{% endif %} id="btn{{ matchup.matchup_id }}_2" onclick="togglePickButton('2', {{ matchup.home_team_id }},{{ matchup.matchup_id }})">
+												<h5 class="visible-xs">H</h5>
+												<h4 class="home hidden-xs visible-sm">{{ matchup.home_team_location_short }}</h4>
+												<h4 class="home visible-md visible-lg">{{ matchup.home_team_location|upper }} {{ matchup.home_team_name|upper }}</h4>
+											</button>
+										</div>
+									{% endif %}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+				{% if lock_picks == False %}
+					<div style="margin:10px 0 10px 0">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Submit Picks</button>
+					</div>
+				{% endif %}
+			</form>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "pigpicks/base_site.html" %}
+{% load staticfiles %}
+
+{% block title %}Pig Picks 5 | Confirm Picks{% endblock %}
+
+{% block content %}
+	<div class="container">
+		{% if page_warning != '' %}
+			<div class="alert alert-warning" style="margin-top: 10px;">
+				{{ page_warning }}
+			</div>
+		{% else %}
+			<div class="alert alert-success" style="margin-top: 10px;">
+				Your week {{ week.week_number }} picks have been saved.  Good luck!
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Your Week {{ week.week_number }} Picks</h3>
+				</div>
+			</div>
+			{% for PickView in picks %}
+				<div class="row pick_confirm_row {% cycle 'row_odd' 'row_even' %}">
+					{% if PickView.nfl_team_id == PickView.home_team_id %}
+						<div class="col-xs-5 col-sm-2 pick_confirm_img {{ PickView.home_team_location_short|lower }} col1">
+							<h3>{{ PickView.home_team_location_short }}</h3>
+						</div>
+						<div class="col-xs-2 col-sm-1 text-center col2">
+							<h5>{{ PickView.spread }}</h5>
+						</div>
+						<div class="col-xs-5 col-sm-2 col3">
+							<h5>vs. {{ PickView.away_team_location_short }}</h5>
+						</div>
+					{% else %}
+						<div class="col-xs-5 col-sm-2 pick_confirm_img {{ PickView.away_team_location_short|lower }} col1">
+							<h3>{{ PickView.away_team_location_short }}</h3>
+						</div>
+						<div class="col-xs-2 col-sm-1 text-center col2">
+							<h5>
+								{% if PickView.spread > 0 %}
+									-{{ PickView.spread }}
+								{% else %}
+									{{ PickView.spread_abs }}
+								{% endif %}
+							</h5>
+						</div>
+						<div class="col-xs-5 col-sm-2 col3">
+							<h5>@ {{ PickView.home_team_location_short }}</h5>
+						</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+{% endblock %}

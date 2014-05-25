@@ -1,0 +1,13 @@
+body{
+	padding-top: 20px;
+}
+h3{
+	margin-top: 0;
+}
+.form-group{
+	margin-bottom: 10px;
+}
+#forgot_password_container{
+	margin-bottom: 20px;
+	font-size: 11px;
+}

@@ -1,0 +1,91 @@
+{% extends "pigpicks/base_site.html" %}
+{% load staticfiles %}
+
+
+{% block title %}Pig Picks 5 | League Picks{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<ul class="pagination">
+			{% if week.week_number|add:"0" > 1 %}
+				<li>
+					<a href="/league/{{ week.week_number|add:"-1" }}/">&laquo;</a>
+				</li>
+			{% endif %}
+			<li><span>Week {{ week.week_number }}</span></li>
+			{% if week.week_number|add:"0" < num_weeks %}
+				<li>
+					<a href="/league/{{ week.week_number|add:"1" }}/">&raquo;</a>
+				</li>
+			{% endif %}
+		</ul>
+		{% if page_warning != '' %}
+			<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+				{{ page_warning }}
+			</div>
+		{% endif %}
+
+		{% if picks|length %}
+			<div class="well">
+				<p>
+					<span class="glyphicon glyphicon-flag"></span> = No Losses
+				</p>
+				<p>
+					<span class="glyphicon glyphicon-exclamation-sign"></span> = Perfect Week
+				</p>
+				<p>
+					<strong>MOC</strong> = Margin of Coverage
+				</p>
+			</div>
+			<div class="table-responsive">
+				<table id="league_picks_table" class="table table-condensed table-striped">
+					<thead>
+						<tr>
+							<th class="col-xs-4 cell_border_right">Team</th>
+							<th class="col-xs-2 league_picks_small_column text-center cell_border_right">Wins</th>
+							<th class="col-xs-1 league_picks_small_column text-center cell_border_right">MOC</th>
+							<th>Picks</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% regroup picks by user_team_name as picks_list %}
+						{% for user_team_name in picks_list %}
+							<tr>
+								<td>{{ user_team_name.grouper }}</td>
+								{% for pick in user_team_name.list %}
+									{% if forloop.counter == 1 %}
+										<td class="text-center">
+											{{ pick.wins_count }}
+											{% if pick.wins_count == 5 %}
+												<span class="glyphicon glyphicon-exclamation-sign"></span>
+											{% elif pick.no_losses %}
+												<span class="glyphicon glyphicon-flag"></span>
+											{% endif %}
+										</td>
+										<td class="text-center">
+											{% if pick.no_losses %}
+												{{ pick.margin_of_coverage }}
+											{% endif %}
+										</td>
+									{% endif %}
+									<td class="col-xs-1">
+										{% if pick.pick_locked or lock_picks or pick.user_id == session_user_id %}
+											<span class="{% if pick.matchup_completed == 1 and pick.won_pick == 0 %}lost_pick{% endif %}">
+												{% if pick.nfl_team_id == pick.home_team_id %}{{ pick.home_team_location_short }}{% else %}{{ pick.away_team_location_short }}{% endif %}
+											</span>
+											{% if pick.matchup_completed == 1 %}
+												<span class="glyphicon {% if pick.won_pick == 1 %}glyphicon-ok{% else %}glyphicon-remove lost_pick{% endif %}"></span>
+											{% endif %}
+										{% else %}
+											?
+										{% endif %}
+									</td>
+								{% endfor %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

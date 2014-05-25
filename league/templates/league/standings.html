@@ -1,0 +1,37 @@
+{% extends "pigpicks/base_site.html" %}
+
+{% block title %}Pig Picks 5 | Standings{% endblock %}
+
+{% block content %}
+	<table id="standings_table" class="table table-condensed table-striped">
+		<thead>
+			<tr>
+				<th class="col-xs-1"></th>
+				<th class="col-xs-6 col-lg-3 cell_border_right">Team</th>
+				<th class="col-xs-5 col-lg-1 cell_border_right text-center">Wins</th>
+				<!-- weeks only visible on large devices -->
+				<th class="visible-lg col-lg-7">
+					{% for week in weeks %}
+						<div class="standings_user_week_result" style="font-weight:bold;">{{ week.week_number }}</div>
+					{% endfor %}
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% regroup standings by user_team_name as standings_list %}
+			{% for user_team_name in standings_list %}
+				<tr>
+					<td>{{ user_team_name.list.0.position }}</td>
+					<td>{{ user_team_name.grouper }}</td>
+					<td class="text-center">{{ user_team_name.list.0.total_wins }}</td>
+					<!-- weeks only visible on large devices -->
+					<td class="visible-lg">
+						{% for user_week_result in user_team_name.list %}
+							<div class="standings_user_week_result">{{ user_week_result.week_wins }}</div>
+						{% endfor %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

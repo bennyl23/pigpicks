@@ -1,0 +1,305 @@
+/* Global Styles */
+body{
+	padding-top: 50px;
+}
+.page_error{
+	color: #A94442;
+	font-size: 14px;
+	margin-bottom: 5px;
+}
+.row_odd{
+	background-color: #F9F9F9;
+}
+.row_even{
+	background-color: #FFFFFF;
+}
+.table-responsive {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #DDD;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Picks Styles */
+.matchup .btn{
+	height: 50px;
+	background-repeat: no-repeat;
+	margin: 10px 0 10px 0;
+}
+.btn.favorite{
+	text-align: right;
+	padding-right: 70px;
+	background-position: 97% 0%;
+}
+.btn.underdog{
+	text-align: left;
+	padding-left: 70px;
+	background-position: 3% 0%;
+}
+.matchup .btn-default.active, .matchup .btn-default:active{
+	background-color: #F7F8E0 !important;
+}
+.matchup .btn-default:focus{
+	background-color: #F7F8E0 !important;
+}
+.matchup .btn-default:hover{
+	background-color: #EBEBEB
+}
+.home{
+	font-weight: bold;
+	font-style: italic;
+}
+.spread{
+	padding: 20px 0 0 0;
+}
+.pick_confirm_row{
+	padding-left: 15px;
+	margin-bottom: 5px;
+}
+.pick_confirm_row .col1 h3{
+	margin-top: 15px;
+}
+.pick_confirm_row .col2{
+	padding-top: 9px;
+}
+.pick_confirm_row .col3{
+	padding-top: 9px;
+}
+.pick_confirm_img{
+	height: 50px;
+	padding-left: 70px;
+	background-repeat: no-repeat;
+}
+
+
+/* league styles */
+#league_picks_table td{
+	white-space: nowrap;
+}
+.cell_border_right{
+	border-right: 1px solid #DDDDDD;
+}
+.league_picks_small_column{
+	min-width: 65px;
+}
+.lost_pick{
+	opacity: 0.4;
+}
+.glyphicon-ok, .glyphicon-exclamation-sign{
+	color: #00CF00;
+}
+.glyphicon-remove{
+	color: #FF0000;
+}
+.sorting{
+	background: url('../images/sort_both.png') no-repeat center right;
+}
+.sorting_asc {
+	background: url('../images/sort_asc.png') no-repeat center right;
+}
+.sorting_desc {
+	background: url('../images/sort_desc.png') no-repeat center right;
+}
+.standings_user_week_result{
+	float: left;
+	width: 40px;
+	text-align: center;
+}
+
+
+/* team logos */
+.ari, .btn.ari {
+	background-image: url('../images/team_logos/cardinals.png');
+}
+.ari_small{
+	background-image: url('../images/team_logos/cardinals_small.png');
+}
+.atl, .btn.atl {
+	background-image: url('../images/team_logos/falcons.png');
+}
+.atl_small {
+	background-image: url('../images/team_logos/falcons_small.png');
+}
+.bal, .btn.bal {
+	background-image: url('../images/team_logos/ravens.png');
+}
+.bal_small{
+	background-image: url('../images/team_logos/ravens_small.png');
+}
+.buf, .btn.buf {
+	background-image: url('../images/team_logos/bills.png');
+}
+.buf_small{
+	background-image: url('../images/team_logos/bills_small.png');
+}
+.car, .btn.car {
+	background-image: url('../images/team_logos/panthers.png');
+}
+.car_small{
+	background-image: url('../images/team_logos/panthers_small.png');
+}
+.chi, .btn.chi {
+	background-image: url('../images/team_logos/bears.png');
+}
+.chi_small{
+	background-image: url('../images/team_logos/bears_small.png');
+}
+.cin, .btn.cin {
+	background-image: url('../images/team_logos/bengals.png');
+}
+.cin_small{
+	background-image: url('../images/team_logos/bengals_small.png');
+}
+.cle, .btn.cle {
+	background-image: url('../images/team_logos/browns.png');
+}
+.cle_small{
+	background-image: url('../images/team_logos/browns_small.png');
+}
+.dal, .btn.dal {
+	background-image: url('../images/team_logos/cowboys.png');
+}
+.dal_small{
+	background-image: url('../images/team_logos/cowboys_small.png');
+}
+.den, .btn.den {
+	background-image: url('../images/team_logos/broncos.png');
+}
+.den_small{
+	background-image: url('../images/team_logos/broncos_small.png');
+}
+.det, .btn.det {
+	background-image: url('../images/team_logos/lions.png');
+}
+.det_small{
+	background-image: url('../images/team_logos/lions_small.png');
+}
+.gb, .btn.gb {
+	background-image: url('../images/team_logos/packers.png');
+}
+.gb_small{
+	background-image: url('../images/team_logos/packers_small.png');
+}
+.hou, .btn.hou {
+	background-image: url('../images/team_logos/texans.png');
+}
+.hou_small{
+	background-image: url('../images/team_logos/texans_small.png');
+}
+.ind, .btn.ind {
+	background-image: url('../images/team_logos/colts.png');
+}
+.ind_small{
+	background-image: url('../images/team_logos/colts_small.png');
+}
+.jac, .btn.jac {
+	background-image: url('../images/team_logos/jaguars.png');
+}
+.jac_small{
+	background-image: url('../images/team_logos/jaguars_small.png');
+}
+.kc, .btn.kc {
+	background-image: url('../images/team_logos/chiefs.png');
+}
+.kc_small{
+	background-image: url('../images/team_logos/chiefs_small.png');
+}
+.mia, .btn.mia {
+	background-image: url('../images/team_logos/dolphins.png');
+}
+.mia_small{
+	background-image: url('../images/team_logos/dolphins_small.png');
+}
+.min, .btn.min {
+	background-image: url('../images/team_logos/vikings.png');
+}
+.min_small{
+	background-image: url('../images/team_logos/vikings_small.png');
+}
+.ne, .btn.ne {
+	background-image: url('../images/team_logos/patriots.png');
+}
+.ne_small{
+	background-image: url('../images/team_logos/patriots_small.png');
+}
+.no, .btn.no {
+	background-image: url('../images/team_logos/saints.png');
+}
+.no_small{
+	background-image: url('../images/team_logos/saints_small.png');
+}
+.nyg, .btn.nyg {
+	background-image: url('../images/team_logos/giants.png');
+}
+.nyg_small{
+	background-image: url('../images/team_logos/giants_small.png');
+}
+.nyj, .btn.nyj {
+	background-image: url('../images/team_logos/jets.png');
+}
+.nyj_small{
+	background-image: url('../images/team_logos/jets_small.png');
+}
+.oak, .btn.oak {
+	background-image: url('../images/team_logos/raiders.png');
+}
+.oak_small{
+	background-image: url('../images/team_logos/raiders_small.png');
+}
+.phi, .btn.phi {
+	background-image: url('../images/team_logos/eagles.png');
+}
+.phi_small{
+	background-image: url('../images/team_logos/eagles_small.png');
+}
+.pit, .btn.pit {
+	background-image: url('../images/team_logos/steelers.png');
+}
+.pit_small{
+	background-image: url('../images/team_logos/steelers_small.png');
+}
+.sea, .btn.sea {
+	background-image: url('../images/team_logos/seahawks.png');
+}
+.sea_small{
+	background-image: url('../images/team_logos/seahawks_small.png');
+}
+.sd, .btn.sd {
+	background-image: url('../images/team_logos/chargers.png');
+}
+.sd_small{
+	background-image: url('../images/team_logos/chargers_small.png');
+}
+.sf, .btn.sf {
+	background-image: url('../images/team_logos/49ers.png');
+}
+.sf_small{
+	background-image: url('../images/team_logos/49ers_small.png');
+}
+.stl, .btn.stl {
+	background-image: url('../images/team_logos/rams.png');
+}
+.stl_small{
+	background-image: url('../images/team_logos/rams_small.png');
+}
+.ten, .btn.ten {
+	background-image: url('../images/team_logos/titans.png');
+}
+.ten_small{
+	background-image: url('../images/team_logos/titans_small.png');
+}
+.tb, .btn.tb {
+	background-image: url('../images/team_logos/buccaneers.png');
+}
+.tb_small{
+	background-image: url('../images/team_logos/buccaneers_small.png');
+}
+.was, .btn.was {
+	background-image: url('../images/team_logos/redskins.png');
+}
+.was_small{
+	background-image: url('../images/team_logos/redskins_small.png');
+}
