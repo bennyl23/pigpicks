@@ -1,3 +1,4 @@
+
 """
 Django settings for pigpicks project.
 
@@ -71,8 +72,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pigpicks',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'USER': 'ben',
+        'PASSWORD': os.environ['pigpicks_mysql_pw'],
         'HOST': '127.0.0.1'
     }
 }
@@ -119,5 +120,5 @@ SESSION_COOKIE_AGE = 120 * 60
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'benlefebvre33@gmail.com'
-EMAIL_HOST_PASSWORD = 'Jelly Filled1'
+EMAIL_HOST_PASSWORD = os.environ['pigpicks_gmail_pw']
 EMAIL_PORT = 587
