@@ -16,16 +16,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'grc8*l&(52n3@#-2=bg7u9c-$zkoxmwm*z6hpm0_sl_588(5yx'
+SECRET_KEY = os.environ['pigpicks_secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = [
+    'www.pigpicksfive.com'
+]
 
 # Templates path
 TEMPLATE_DIRS = (
@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
     'login',
     'home',
     'rules',
@@ -94,6 +95,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
 
 # Static files paths
@@ -101,8 +103,21 @@ STATICFILES_DIRS = (
     os.path.join(os.path.dirname(__file__), 'static')
 ),
 
+# tinymce settings
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "admin/js/tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "admin/js/tinymce/")
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "modern"
+}
 
 # session settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 SESSION_COOKIE_AGE = 120 * 60
+
+# email settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'benlefebvre33@gmail.com'
+EMAIL_HOST_PASSWORD = 'Jelly Filled1'
+EMAIL_PORT = 587
