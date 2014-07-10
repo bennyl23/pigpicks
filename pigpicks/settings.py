@@ -24,14 +24,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = [
-    'www.pigpicksfive.com',
-    'benserver.pigpicksfive.com',
-    '127.0.0.1',
-    'localhost',
-    '.pigpicksfive.com',
-    '.pigpicksfive.com.',
-]
+ALLOWED_HOSTS = ['*']
 
 # Templates path
 TEMPLATE_DIRS = (
