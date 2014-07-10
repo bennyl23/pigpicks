@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'pigpicks.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pigpicks',
+        'NAME': 'ben_pigpicks',
         'USER': 'ben',
         'PASSWORD': os.environ['pigpicks_mysql_pw'],
         'HOST': '127.0.0.1'
