@@ -20,11 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = os.environ['PIGPICKS_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    '.pigpicksfive.com',
+    '.pigpicksfive.com.'
+]
 
 # Templates path
 TEMPLATE_DIRS = (
