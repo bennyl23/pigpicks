@@ -25,7 +25,8 @@ DEBUG = False
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = [
-    'benserver.pigpicksfive.com'
+    '.pigpicksfive.com', # Allow domain and subdomains
+    '.pigpicksfive.com.', # Also allow FQDN and subdomains
 ]
 
 # Templates path
