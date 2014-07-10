@@ -72,7 +72,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ben_pigpicks',
-        'USER': 'ben_pigpicks',
+        'USER': 'ben',
         'PASSWORD': os.environ['PIGPICKS_MYSQL_PW'],
         'HOST': '127.0.0.1'
     }
