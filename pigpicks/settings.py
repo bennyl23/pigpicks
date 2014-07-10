@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-SECRET_KEY = os.environ['pigpicks_secret_key']
+SECRET_KEY = os.environ['PIGPICKS_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -73,7 +73,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ben_pigpicks',
         'USER': 'ben',
-        'PASSWORD': os.environ['pigpicks_mysql_pw'],
+        'PASSWORD': os.environ['PIGPICKS_MYSQL_PW'],
         'HOST': '127.0.0.1'
     }
 }
@@ -120,5 +120,5 @@ SESSION_COOKIE_AGE = 120 * 60
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'benlefebvre33@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['pigpicks_gmail_pw']
+EMAIL_HOST_PASSWORD = os.environ['PIGPICKS_GMAIL_PW']
 EMAIL_PORT = 587
