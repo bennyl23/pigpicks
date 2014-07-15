@@ -16,8 +16,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
-SECRET_KEY = os.environ['PIGPICKS_SECRET_KEY']
+with open('/projects/pigpicks/security/variables/secret_key.txt') as secret_key_file:
+    SECRET_KEY = secret_key_file.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -68,13 +68,15 @@ WSGI_APPLICATION = 'pigpicks.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+with open('/projects/pigpicks/security/variables/mysql_pw.txt') as mysql_pw_file:
+    MYSQL_PW = mysql_pw_file.read().strip()
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ben_pigpicks',
         'USER': 'ben',
-        'PASSWORD': os.environ['PIGPICKS_MYSQL_PW'],
+        'PASSWORD': MYSQL_PW,
         'HOST': '127.0.0.1'
     }
 }
@@ -117,9 +119,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 SESSION_COOKIE_AGE = 120 * 60
 
+with open('/projects/pigpicks/security/variables/gmail_pw.txt') as gmail_pw_file:
+    GMAIL_PW = gmail_pw_file.read().strip()
+
 # email settings
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'benlefebvre33@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ['PIGPICKS_GMAIL_PW']
+EMAIL_HOST_PASSWORD = GMAIL_PW
 EMAIL_PORT = 587
