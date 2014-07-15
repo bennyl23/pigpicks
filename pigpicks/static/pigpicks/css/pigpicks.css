@@ -23,6 +23,39 @@ body{
     -webkit-overflow-scrolling: touch;
 }
 
+/* Home Styles */
+.team_bg_img{
+	height: 50px;
+	background-repeat: no-repeat;
+	background-position: 50% 0%;
+}
+.home_pick_text{
+	padding-top: 18px;
+	text-align: center;
+}
+.home_pick_text_left{
+	padding-top: 18px;
+}
+.GNF{
+	font-weight: bold;
+	font-style: italic;
+}
+.GNF_help{
+	font-size: 10px;
+	font-weight: bold;
+	margin: 20px 0 20px 10px;
+}
+.blog_entry_title{
+	background-color: #53537C !important;
+}
+.blog_entry_date{
+	font-size: 12px;
+}
+.blog_entry_date_xs{
+	font-size: 11px;
+	margin-top: 5px;
+}
+
 /* Picks Styles */
 .matchup .btn{
 	height: 50px;

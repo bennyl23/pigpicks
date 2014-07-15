@@ -84,3 +84,26 @@ class ForgotPasswordForm(forms.Form):
         ),
         validators=[validators.validate_referring_email]
     )
+
+
+class ResetPasswordForm(forms.Form):
+    user_password = forms.CharField(
+        min_length=8,
+        max_length=60,
+        label='New Password',
+        initial='',
+        widget=forms.PasswordInput(
+            attrs={'placeholder':'Enter new password', 'class':'form-control'}
+        ),
+        error_messages={'min_length':'Password must be at least 8 characters.'}
+    )
+    user_password_again = forms.CharField(
+        min_length=8,
+        max_length=60,
+        label='Re-enter New Password',
+        initial='',
+        widget=forms.PasswordInput(
+            attrs={'placeholder':'Re-enter new password', 'class':'form-control'}
+        ),
+        error_messages={'min_length':'Password must be at least 8 characters.'}
+    )

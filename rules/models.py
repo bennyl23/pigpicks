@@ -1,11 +1,13 @@
 from django.db import models
-
+from tinymce.models import HTMLField
 
 # Create your models here.
-class Commissioner(models.Model):
-    commish_id = models.PositiveSmallIntegerField(primary_key=True)
-    league_message = models.TextField()
-    league_rules = models.TextField()
+class Rule(models.Model):
+    rule_id = models.AutoField(primary_key=True)
+    rule_text = HTMLField()
 
     class Meta:
-        db_table = 'commissioner_t'
+        db_table = 'rules_t'
+
+    def __unicode__(self):
+        return unicode('Pig Picks Rules')

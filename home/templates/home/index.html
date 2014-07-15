@@ -4,6 +4,75 @@
 
 {% block content %}
 	<div class="container">
-		<h1>welcome to pig picks {{ user_email }}</h1>
+		<div class="row">
+			{% if page_warning %}
+				<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+					{{ page_warning }}
+				</div>
+			{% else %}
+				<div class="col-xs-12 panel panel-default" style="padding: 0; margin: 20px 0 0 0;">
+					<div class="panel-heading">
+						<h4 class="panel-title">Your week {{ week.week_number }} picks</h4>
+					</div>
+					<div class="panel-body">
+						{% for pick in picks %}
+							<div class="row {% cycle 'row_odd' 'row_even' %}">
+								<div class="col-xs-3 col-sm-1 home_pick_text">
+									{% if pick.matchup_completed %}
+										{% if pick.won_pick %}
+											<span class="glyphicon glyphicon-ok"></span>
+										{% else %}
+											<span class="glyphicon glyphicon-remove"></span>
+										{% endif %}
+									{% else %}
+										<span class="GNF">GNF</span>
+									{% endif %}
+								</div>
+								{% if pick.nfl_team_id == pick.home_team_id %}
+									<div class="col-xs-2 col-sm-1 team_bg_img {{ pick.home_team_location_short|lower }}"></div>
+									<div class="hidden-xs col-sm-2 col-md-1 home_pick_text_left">{{ pick.home_team_name }}</div>
+									<div class="col-xs-2 col-sm-1 home_pick_text">{{ pick.spread }}</div>
+									<div class="col-xs-2 col-sm-1 home_pick_text">vs.</div>
+									<div class="col-xs-2 col-sm-1 home_pick_text">{{ pick.away_team_location_short|upper }}</div>
+								{% else %}
+									<div class="col-xs-2 col-sm-1 team_bg_img {{ pick.away_team_location_short|lower }}"></div>
+									<div class="hidden-xs col-sm-2 col-md-1 home_pick_text_left">{{ pick.away_team_name }}</div>
+									<div class="col-xs-2 col-sm-1 home_pick_text">
+										{% if pick.spread > 0 %}
+											-{{ pick.spread }}
+										{% else %}
+											{{ pick.spread_abs }}
+										{% endif %}
+									</div>
+									<div class="col-xs-2 col-sm-1 home_pick_text">@</div>
+									<div class="col-xs-2 col-sm-1 home_pick_text">{{ pick.home_team_location_short|upper }}</div>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+					<div class="GNF_help">GNF - Game Not Finished</div>
+				</div>
+			{% endif %}
+		</div>
+		{% if blog_entries %}
+			<div class="row">
+				<div class="panel panel-default col-xs-12" style="padding: 0;">
+					{% for blog_entry in blog_entries %}
+						<div class="panel-heading blog_entry_title">
+							<h4 class="panel-title">
+								{{ blog_entry.entry_subject }}
+								<span class="blog_entry_date pull-right hidden-xs">{{ blog_entry.entry_date }}</span>
+							</h4>
+							<div class="blog_entry_date_xs visible-xs">
+								{{ blog_entry.entry_date }}
+							</div>
+						</div>
+						<div class="panel-body">
+							{% autoescape off %}{{ blog_entry.entry_body }}{% endautoescape %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

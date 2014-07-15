@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from pigpicks import settings
+from pigpicks import settings_web
 
 
 admin.autodiscover()
@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^picks/', include('picks.urls', namespace='picks')),
     url(r'^league/', include('league.urls', namespace='league')),
     url(r'^rules/', include('rules.urls', namespace='rules')),
+    (r'^tinymce/', include('tinymce.urls')),
 )

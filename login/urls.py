@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     url(r'^register/$', views.register, name='register'),
     # /login/forgot_password/
     url(r'^forgot_password/$', views.forgot_password, name='forgot_password'),
+    # /login/reset_password/
+    url(r'^reset_password/$', views.reset_password, name='reset_password'),
     # /login/logout/
     url(r'^logout/$', views.logout, name='logout'),
     # /login/session_ended/

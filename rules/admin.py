@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rules.models import Commissioner
+from rules.models import Rule
 
 # Register your models here.
-admin.site.register(Commissioner)
+admin.site.register(Rule)

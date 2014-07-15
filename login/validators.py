@@ -47,3 +47,14 @@ def validate_referring_email(value):
     existing_referring_email = User.objects.filter(user_email=value)
     if (not existing_referring_email):
         raise ValidationError('This email could not be found.  Try again.')
+
+def validate_new_password(user_password, user_password_again):
+    validate_new_password_response = {}
+    validate_new_password_response['successful'] = True
+
+    if user_password != user_password_again:
+        validate_new_password_response['successful'] = False
+        validate_new_password_response['page_error'] = 'The passwords you entered do not match.  Please enter the same password twice.'
+
+    return validate_new_password_response
+

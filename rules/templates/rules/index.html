@@ -4,6 +4,15 @@
 
 {% block content %}
 	<div class="container">
-		<h1>rules page</h1>
+		{% if page_warning %}
+			<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+				{{ page_warning }}
+			</div>
+		{% endif %}
+		<div class="row" style="margin-top:20px;">
+			<div class="col-xs-12">
+				{% autoescape off %}{{ rule.rule_text }}{% endautoescape %}
+			</div>
+		</div>
 	</div>
 {% endblock %}
