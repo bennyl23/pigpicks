@@ -20,7 +20,7 @@ with open('/projects/pigpicks/security/variables/secret_key.txt') as secret_key_
     SECRET_KEY = secret_key_file.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
