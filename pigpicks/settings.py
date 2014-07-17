@@ -119,14 +119,14 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 SESSION_COOKIE_AGE = 120 * 60
 
-with open('/projects/pigpicks/security/variables/gmail_pw.txt') as gmail_pw_file:
-    GMAIL_PW = gmail_pw_file.read().strip()
+with open('/projects/pigpicks/security/variables/email_pw.txt') as email_pw_file:
+    EMAIL_PW = email_pw_file.read().strip()
 
 # email settings
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'benlefebvre33@gmail.com'
-EMAIL_HOST_PASSWORD = GMAIL_PW
+EMAIL_HOST_USER = 'ben@pigpicksfive.com'
+EMAIL_HOST_PASSWORD = EMAIL_PW
 EMAIL_PORT = 587
 
 # SSL settings
