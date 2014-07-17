@@ -8,7 +8,6 @@ class User(models.Model):
     user_email = models.EmailField(max_length=100)
     user_team_name = models.CharField(max_length=25)
     user_password = models.CharField(max_length=60, editable=False)
-    user_admin_access = models.BooleanField(default=False)
     user_paid = models.BooleanField(default=False)
     user_n = models.CharField(max_length=15, null=True, blank=True)
     user_af1 = models.CharField(max_length=15, null=True, blank=True)
