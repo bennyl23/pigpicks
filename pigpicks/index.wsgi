@@ -11,6 +11,8 @@ sys.path.append('/projects/pigpicks/pigpicks/pigpicks')
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pigpicks.settings'
 
+os.environ['HTTPS'] = "on"
+
 # Activate your virtual env
 activate_env=os.path.expanduser("/virtualenvs/pigpicks/bin/activate_this.py")
 execfile(activate_env, dict(__file__=activate_env))
