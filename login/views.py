@@ -109,7 +109,7 @@ def forgot_password(request):
 
             # set email parameters and send
             subject = 'Forgot Password'
-            from_email = 'ben@pigpicksfive.com'
+            from_email = '<Pig Picks Five>ben@pigpicksfive.com'
             to_emails = user.user_email
             email_msg = EmailMultiAlternatives(subject, text_content, from_email, [to_emails])
             email_msg.attach_alternative(html_content, "text/html")
