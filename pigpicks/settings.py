@@ -124,10 +124,10 @@ with open('/projects/pigpicks/security/variables/email_pw.txt') as email_pw_file
 
 # email settings
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.pigpicksfive.com'
 EMAIL_HOST_USER = 'ben@pigpicksfive.com'
 EMAIL_HOST_PASSWORD = EMAIL_PW
-EMAIL_PORT = 587
+EMAIL_PORT = 26
 
 # SSL settings
 # secure proxy SSL header and secure cookies
