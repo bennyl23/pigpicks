@@ -20,7 +20,7 @@ with open('/projects/pigpicks/security/variables/secret_key.txt') as secret_key_
     SECRET_KEY = secret_key_file.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -128,3 +128,16 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'benlefebvre33@gmail.com'
 EMAIL_HOST_PASSWORD = GMAIL_PW
 EMAIL_PORT = 587
+
+# SSL settings
+# secure proxy SSL header and secure cookies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# session expire at browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# wsgi scheme
+os.environ['wsgi.url_scheme'] = 'https'
+
