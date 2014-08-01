@@ -29,13 +29,13 @@
 									{% endif %}
 								</div>
 								{% if pick.nfl_team_id == pick.home_team_id %}
-									<div class="col-xs-2 col-sm-1 team_bg_img {{ pick.home_team_location_short|lower }}"></div>
+									<div class="col-xs-2 col-sm-1 team_bg_img {{ pick.home_team_location_short|lower }} {% if pick.best_bet %}best_bet_row{% endif %}"></div>
 									<div class="hidden-xs col-sm-2 col-md-1 home_pick_text_left">{{ pick.home_team_name }}</div>
 									<div class="col-xs-2 col-sm-1 home_pick_text">{{ pick.spread }}</div>
 									<div class="col-xs-2 col-sm-1 home_pick_text">vs.</div>
 									<div class="col-xs-2 col-sm-1 home_pick_text">{{ pick.away_team_location_short|upper }}</div>
 								{% else %}
-									<div class="col-xs-2 col-sm-1 team_bg_img {{ pick.away_team_location_short|lower }}"></div>
+									<div class="col-xs-2 col-sm-1 team_bg_img {{ pick.away_team_location_short|lower }} {% if pick.best_bet %}best_bet_row{% endif %}"></div>
 									<div class="hidden-xs col-sm-2 col-md-1 home_pick_text_left">{{ pick.away_team_name }}</div>
 									<div class="col-xs-2 col-sm-1 home_pick_text">
 										{% if pick.spread > 0 %}

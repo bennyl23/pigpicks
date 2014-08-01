@@ -166,6 +166,7 @@ class Pick(models.Model):
     user_id = models.ForeignKey('login.User', db_column='user_id')
     matchup_id = models.ForeignKey('Matchup', db_column='matchup_id')
     won_pick = models.BooleanField(default=False)
+    best_bet = models.BooleanField(default=False)
     objects = PicksManager()
 
     class Meta:
@@ -210,6 +211,7 @@ class PickView(models.Model):
     nfl_team_id = models.PositiveSmallIntegerField()
     user_id = models.IntegerField()
     won_pick = models.BooleanField()
+    best_bet = models.BooleanField()
     user_email = models.EmailField(max_length=100)
     user_team_name = models.CharField(max_length=15)
     matchup_id = models.IntegerField()

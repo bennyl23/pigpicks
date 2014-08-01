@@ -16,6 +16,7 @@ def build_league_picks_list(picks):
         pick_dict["nfl_team_id"] = pick.nfl_team_id
         pick_dict["user_id"] = pick.user_id
         pick_dict["won_pick"] = pick.won_pick
+        pick_dict["best_bet"] = pick.best_bet
         pick_dict["user_email"] = pick.user_email
         pick_dict["user_team_name"] = pick.user_team_name
         pick_dict["matchup_id"] = pick.matchup_id

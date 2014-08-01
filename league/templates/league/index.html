@@ -70,7 +70,7 @@
 									{% endif %}
 									<td class="col-xs-1">
 										{% if pick.pick_locked or lock_picks or pick.user_id == session_user_id %}
-											<span class="{% if pick.matchup_completed == 1 and pick.won_pick == 0 %}lost_pick{% endif %}">
+											<span class="{% if pick.matchup_completed == 1 and pick.won_pick == 0 %}lost_pick{% endif %} {% if pick.best_bet %}best_bet_text{% endif %}">
 												{% if pick.nfl_team_id == pick.home_team_id %}{{ pick.home_team_location_short }}{% else %}{{ pick.away_team_location_short }}{% endif %}
 											</span>
 											{% if pick.matchup_completed == 1 %}

@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
@@ -11,6 +10,7 @@ from picks.models import PickView
 from picks.models import Week
 
 from picks.functions import build_matchup_dict
+from picks.functions import save_picks
 
 
 @signed_in_only
@@ -20,11 +20,11 @@ def index(request, week_number=0):
     lock_picks = False
     num_weeks = Week.objects.count()
     num_picks_made = 0
+    request.session['picks_list'] = []
 
     if request.method == 'POST':
         week = Week.objects.get(week_number=int(request.POST.get('week_number')))
         matchups = MatchupView.objects.filter(week_number=week.week_number).order_by('game_date', 'matchup_id')
-        picks_list = []
         for matchup in matchups:
             try:
                 matchup_id_field_val = int(request.POST.get(str(matchup.matchup_id)))
@@ -34,33 +34,23 @@ def index(request, week_number=0):
             # matchup_id form field will have a value if selected
             if matchup_id_field_val != 0:
                 num_picks_made += 1
-                # Add the pick to the list if it isn't locked.  Locked picks do not get deleted before save.
-                if not Matchup.objects.get(matchup_id=matchup.matchup_id).pick_locked():
-                    user_pick = {}
-                    user_pick['user_id_id'] = request.session['user_id']
-                    user_pick['matchup_id_id'] = matchup.matchup_id
-                    user_pick['nfl_team_id_id'] = matchup_id_field_val
-                    picks_list.append(user_pick)
+
+                user_pick = {}
+                user_pick['user_id_id'] = request.session['user_id']
+                user_pick['matchup_id_id'] = matchup.matchup_id
+                user_pick['nfl_team_id_id'] = matchup_id_field_val
+
+                # Add to the picks list in session
+                request.session['picks_list'].append(user_pick)
 
         if num_picks_made > 5:
             page_error = 'You have made too many picks.  Try again.'
         elif num_picks_made < 5:
             page_error = 'You have made too few picks.  Try again.'
-        else:
-            # first, delete any existing picks for the user (as long as they aren't locked)
-            Pick.objects.filter(matchup_id__week_number=week.week_number, user_id_id=request.session['user_id'], matchup_id__game_date__gt=timezone.now()).delete()
-            for pick_dict in picks_list:
-                pick = Pick(**pick_dict)
-                try:
-                    pick.full_clean()
-                except ValidationError as e:
-                    page_error = 'There was a problem saving your picks.  Try again.'
-                else:
-                    pick.save()
 
         if (page_error == ''):
-            # Redirect to confirmation page if picks submission successful
-            return HttpResponseRedirect('/picks/confirmation/')
+            # Redirect to best bet page if picks submission successful
+            return HttpResponseRedirect('/picks/bestbet/')
     else:
     # not a form post
         # if no week number passed in, use the current week
@@ -106,6 +96,92 @@ def index(request, week_number=0):
         'lock_picks': lock_picks,
         'page_error': page_error,
         'page_warning': page_warning
+    })
+
+@signed_in_only
+def bestbet(request):
+    week = Week.objects.current_week()
+    lock_picks = False
+    page_warning = ''
+    page_error = ''
+
+    if request.method == 'POST':
+        best_bet_field_val = request.POST.get('bestbet')
+        if not best_bet_field_val:
+            page_error = 'Please select your best bet.'
+        else:
+            best_bet_field_val = int(best_bet_field_val)
+            picks_list = []
+            for pick in request.session['picks_list']:
+                user_pick = {}
+                user_pick['user_id_id'] = pick['user_id_id']
+                user_pick['matchup_id_id'] = pick['matchup_id_id']
+                user_pick['nfl_team_id_id'] = pick['nfl_team_id_id']
+                if best_bet_field_val == pick['matchup_id_id']:
+                    user_pick['best_bet'] = True
+                else:
+                    user_pick['best_bet'] = False
+                # Add the pick to the list if it isn't locked.  Locked picks do not get deleted before save.
+                if not Matchup.objects.get(matchup_id=pick['matchup_id_id']).pick_locked():
+                    picks_list.append(user_pick)
+
+            save_picks_response = save_picks(picks_list, week.week_number, request.session['user_id'])
+            if save_picks_response == '':
+                return HttpResponseRedirect('/picks/confirmation/')
+            else:
+                page_error = save_picks_response
+
+    if lock_picks == False and week.picks_lock < timezone.now():
+        lock_picks = True
+        page_warning = 'Week ' + str(week.week_number) + ' picks have been locked.'
+
+    matchups_list = []
+
+    # If lock_picks is true, the user will never get to the best bet page, but just in case
+    if lock_picks == False:
+        # See if the user made picks already and if their best bet is locked
+        try:
+            best_bet_pick = PickView.objects.get(week_number=week.week_number, user_id=request.session['user_id'], best_bet=True)
+        except PickView.DoesNotExist:
+            pass
+        else:
+            # if their best bet pick is locked, save the picks and go to the confirmation page
+            if best_bet_pick.pick_locked():
+                picks_list = []
+                for pick in request.session['picks_list']:
+                    user_pick = {}
+                    user_pick['user_id_id'] = pick['user_id_id']
+                    user_pick['matchup_id_id'] = pick['matchup_id_id']
+                    user_pick['nfl_team_id_id'] = pick['nfl_team_id_id']
+                    if best_bet_pick.matchup_id == pick['matchup_id_id']:
+                        user_pick['best_bet'] = True
+                    else:
+                        user_pick['best_bet'] = False
+                    # Add the pick to the list if it isn't locked.  Locked picks do not get deleted before save.
+                    if not Matchup.objects.get(matchup_id=pick['matchup_id_id']).pick_locked():
+                        picks_list.append(user_pick)
+
+                save_picks_response = save_picks(picks_list, week.week_number, request.session['user_id'])
+                if save_picks_response == '':
+                    return HttpResponseRedirect('/picks/confirmation/')
+                else:
+                    page_error = save_picks_response
+
+        try:
+            for pick in request.session['picks_list']:
+                matchup = MatchupView.objects.get(matchup_id=pick['matchup_id_id'])
+                matchup_dict = build_matchup_dict(matchup, pick['nfl_team_id_id'])
+                matchups_list.append(matchup_dict)
+        except:
+            page_error = 'An error has occured.  Go back and try again.'
+
+    return render(request, 'picks/bestbet.html',{
+        'request': request,
+        'week': week,
+        'matchups': matchups_list,
+        'lock_picks': lock_picks,
+        'page_warning': page_warning,
+        'page_error': page_error
     })
 
 @signed_in_only

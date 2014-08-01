@@ -1,0 +1,60 @@
+{% extends "pigpicks/base_site.html" %}
+{% load staticfiles %}
+
+{% block title %}Pig Picks 5 | Best Bet{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12" style="margin:10px 0 10px 0;">
+				<span style="font-size:24px;">
+					Week {{ week.week_number }} Best Bet
+				</span>
+				&nbsp;&nbsp;
+				<a id="best_bet_info" data-toggle="popover" data-placement="bottom" data-content="Designate one of your week {{ week.week_number }} picks as your 'best bet'.  Get it right and receive an extra point!">
+					<span class="glyphicon glyphicon-question-sign" style="font-size:14px; cursor:pointer;"></span>
+				</a>
+			</div>
+		</div>
+		{% if page_error != '' %}
+			<div class="alert alert-danger page_error" style="margin-top: 10px;">
+				{{ page_error }}
+			</div>
+		{% endif %}
+		{% if page_warning != '' %}
+			<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+				{{ page_warning }}
+			</div>
+		{% endif %}
+		{% if lock_picks == False %}
+			<form action="{% url 'picks:bestbet' %}" method="post" role="form">{% csrf_token %}
+				<div class="btn-group-vertical" data-toggle="buttons">
+					{% for matchup in matchups %}
+						{% if matchup.nfl_team_id == matchup.home_team_id %}
+							<label class="btn btn-default btn-lg btn-block best_bet_btn underdog {{ matchup.home_team_location_short|lower }} {% if matchup.pick_locked %}disabled{% endif %}">
+								<input type="radio" name="bestbet" id="{{ matchup.matchup_id }}" value="{{ matchup.matchup_id }}">
+								{{ matchup.spread }}
+								&nbsp;
+								vs. {{ matchup.away_team_location_short }}
+							</label>
+						{% else %}
+							<label class="btn btn-default btn-lg btn-block best_bet_btn underdog {{ matchup.away_team_location_short|lower }} {% if matchup.pick_locked %}disabled{% endif %}">
+								<input type="radio" name="bestbet" id="{{ matchup.matchup_id }}" value="{{ matchup.matchup_id }}">
+								{% if matchup.spread > 0 %}
+									-{{ matchup.spread }}
+								{% else %}
+									{{ matchup.spread_abs }}
+								{% endif %}
+								&nbsp;
+								@ {{ matchup.home_team_location_short }}
+							</label>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div style="margin:10px 0 10px 0">
+					<button class="btn btn-lg btn-primary" style="width:280px;" type="submit">Save Picks</button>
+				</div>
+			</form>
+		{% endif %}
+	</div>
+{% endblock %}

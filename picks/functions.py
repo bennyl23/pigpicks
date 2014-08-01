@@ -1,3 +1,7 @@
+from picks.models import Pick
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+
 def build_matchup_dict(matchup, nfl_team_id):
     """Return a dictionary of a MatchupView, including the nfl_team_id the user selected for that matchup"""
     matchup_dict = {}
@@ -16,3 +20,19 @@ def build_matchup_dict(matchup, nfl_team_id):
     matchup_dict['away_team_location'] = matchup.away_team_location
     matchup_dict['away_team_location_short'] = matchup.away_team_location_short
     return matchup_dict
+
+def save_picks(picks, week_number, user_id):
+    response = ''
+
+    # first, delete any existing picks for the user (as long as they aren't locked)
+    Pick.objects.filter(matchup_id__week_number=week_number, user_id_id=user_id, matchup_id__game_date__gt=timezone.now()).delete()
+    for pick_dict in picks:
+        pick = Pick(**pick_dict)
+        try:
+            pick.full_clean()
+        except ValidationError as e:
+            response = 'There was a problem saving your picks.  Try again.'
+        else:
+            pick.save()
+
+    return response

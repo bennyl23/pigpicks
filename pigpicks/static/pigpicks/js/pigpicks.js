@@ -45,6 +45,8 @@ $( document ).ready(function() {
 			'aTargets': [0,3]
 		}]
 	});
+
+	$("#best_bet_info").popover();
 });
 
 togglePickButton = function(btnNum, nfl_team_id, matchup_id){

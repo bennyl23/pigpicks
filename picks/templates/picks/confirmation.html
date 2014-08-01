@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			{% for PickView in picks %}
-				<div class="row pick_confirm_row {% cycle 'row_odd' 'row_even' %}">
+				<div class="row pick_confirm_row {% cycle 'row_odd' 'row_even' %} {% if PickView.best_bet %}best_bet_row{% endif %}">
 					{% if PickView.nfl_team_id == PickView.home_team_id %}
 						<div class="col-xs-5 col-sm-2 pick_confirm_img {{ PickView.home_team_location_short|lower }} col1">
 							<h3>{{ PickView.home_team_location_short }}</h3>

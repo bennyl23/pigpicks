@@ -22,6 +22,10 @@ body{
     border: 1px solid #DDD;
     -webkit-overflow-scrolling: touch;
 }
+.glyphicon_large {
+	font-size: 38px;
+	line-height: 1.33
+}
 
 /* Home Styles */
 .team_bg_img{
@@ -106,6 +110,17 @@ body{
 	padding-left: 70px;
 	background-repeat: no-repeat;
 }
+.best_bet_btn{
+	min-width: 280px !important;
+	height: 55px;
+	background-repeat: no-repeat;
+}
+.best_bet_btn.active{
+	background-color: #F7F8E0 !important;
+}
+.best_bet_row{
+	border: 2px solid #FFFF99;
+}
 
 
 /* league styles */
@@ -140,6 +155,9 @@ body{
 	float: left;
 	width: 40px;
 	text-align: center;
+}
+.best_bet_text{
+	color: #B2B247;
 }
 
 
