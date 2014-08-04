@@ -26,6 +26,9 @@ class User(models.Model):
         hashed_password = make_password(self.user_password)
         self.user_password = hashed_password
 
+        # REMOVE THIS!!
+        self.user_team_name = self.user_team_name[:15]
+
         super(User, self).save(*args, **kwargs)
 
 
