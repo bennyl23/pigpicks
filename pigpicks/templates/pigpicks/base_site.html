@@ -1,7 +1,7 @@
 {% extends "pigpicks/base.html" %}
 
 {% block base_content %}
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#pigpicks-navbar">
@@ -38,6 +38,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href="{% url 'login:reset_password' %}">Change Password</a></li>
+							<li><a href="mailto:ben@pigpicksfive.com">Contact</a></li>
 							<li><a href="{% url 'login:logout' %}">Logout</a></li>
 						</ul>
 					</li>

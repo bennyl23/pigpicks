@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 			<form action="{% url 'login:index' %}" method="post" class="form-signin" role="form">{% csrf_token %}
-				<h3>Sign In</h3>
+				<h3>Pig Picks Five - Sign In</h3>
 				{% if page_warning %}
 					<div class="alert alert-warning page_warning" style="margin-top: 10px;">
 						{{ page_warning }}
@@ -31,6 +31,11 @@
 					{% if field.html_name == 'user_password' %}
 						<div id="forgot_password_container">
 							<a href="{% url 'login:forgot_password' %}">Forgot Password?</a>
+							<a href="mailto:ben@pigpicksfive.com" style="display:inline-block;float:right;">
+								Contact Us
+								&nbsp;
+								<span class="glyphicon glyphicon-envelope"></span>
+							</a>
 						</div>
 					{% endif %}
 			    {% endfor %}
