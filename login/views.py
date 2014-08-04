@@ -13,9 +13,6 @@ from login import forms
 from login.validators import validate_login
 from login.validators import validate_new_password
 
-# REMOVE THIS!!!
-from login.functions import insert_users
-
 
 def index(request, session_code=None):
     page_warning = ''
@@ -47,9 +44,6 @@ def index(request, session_code=None):
         if session_code == 'logged_out':
             page_warning = 'You have logged out.'
         form = forms.LoginForm()
-
-    # REMOVE THIS!!!
-    insert_users()
 
     # Renders the login form if it's a new request or bound form is not valid
     return render(request, 'login/index.html', {
