@@ -76,6 +76,29 @@ class PickViewManager(models.Manager):
 
         return total_margin_of_coverage
 
+    def calc_best_bet_moc(self, user_id, week_number):
+        try:
+            best_bet_pick = super(PickViewManager, self).get_query_set().get(user_id=user_id, week_number=week_number, best_bet=True)
+        except PickView.DoesNotExist:
+            return ''
+        else:
+            if best_bet_pick.matchup_completed:
+                moc = 0
+                # user picked home team
+                if best_bet_pick.nfl_team_id == best_bet_pick.home_team_id:
+                    moc = (best_bet_pick.home_team_score + best_bet_pick.spread) - best_bet_pick.away_team_score
+                else:
+                    away_team_spread = 0
+                    if best_bet_pick.spread < 0:
+                        away_team_spread = best_bet_pick.spread_abs
+                    else:
+                        away_team_spread = best_bet_pick.spread - (best_bet_pick.spread * 2)
+                    moc = (best_bet_pick.away_team_score + away_team_spread) - best_bet_pick.home_team_score
+            else:
+                moc = ''
+
+            return moc
+
 # Tables
 class Week(models.Model):
     week_number = models.PositiveSmallIntegerField(primary_key=True)

@@ -7,8 +7,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12" style="margin:10px 0 10px 0;">
-				<span style="font-size:24px;">
-					Week {{ week.week_number }} Best Bet
+				<span style="font-size:20px; font-weight:bold;">
+					Select Week {{ week.week_number }} Best Bet
 				</span>
 				&nbsp;&nbsp;
 				<a id="best_bet_info" data-toggle="popover" data-placement="bottom" data-content="Designate one of your week {{ week.week_number }} picks as your 'best bet'.  Get it right and receive an extra point!">
@@ -35,7 +35,7 @@
 								<input type="radio" name="bestbet" id="{{ matchup.matchup_id }}" value="{{ matchup.matchup_id }}">
 								{{ matchup.spread }}
 								&nbsp;
-								vs. {{ matchup.away_team_location_short }}
+								<span style="font-size:14px;">vs. {{ matchup.away_team_location_short }}</span>
 							</label>
 						{% else %}
 							<label class="btn btn-default btn-lg btn-block best_bet_btn underdog {{ matchup.away_team_location_short|lower }} {% if matchup.pick_locked %}disabled{% endif %}">
@@ -46,7 +46,7 @@
 									{{ matchup.spread_abs }}
 								{% endif %}
 								&nbsp;
-								@ {{ matchup.home_team_location_short }}
+								<span style="font-size:14px;">@ {{ matchup.home_team_location_short }}</span>
 							</label>
 						{% endif %}
 					{% endfor %}

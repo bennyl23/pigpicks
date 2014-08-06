@@ -9,10 +9,10 @@ $( document ).ready(function() {
         "bAutoWidth": false,
 		"bProcessing": true,
 		"aaSorting": [[ 0, "asc"]],
-		"aoColumns": [null, null, null, null, null, null, null, null],
+		"aoColumns": [null, null, null, null, null, null, null, null, null],
 		"aoColumnDefs": [{
 			'bSortable': false,
-			'aTargets': [3]
+			'aTargets': [4]
 		}]
 	});
 

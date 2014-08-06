@@ -39,6 +39,7 @@ def build_league_picks_list(picks):
         pick_dict["no_losses"] = PickView.objects.has_no_losses(pick.user_id, pick.week_number)
         pick_dict["wins_count"] = PickView.objects.get_wins_count_by_user_week(pick.user_id, pick.week_number)
         pick_dict["margin_of_coverage"] = PickView.objects.calc_margin_of_coverage(pick.user_id, pick.week_number, pick_dict["no_losses"])
+        pick_dict["best_bet_moc"] = PickView.objects.calc_best_bet_moc(pick.user_id, pick.week_number)
         picks_list.append(pick_dict)
 
     return picks_list

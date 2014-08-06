@@ -1,0 +1,11 @@
+{% extends "pigpicks/base.html" %}
+
+{% block base_content %}
+	<div class="jumbotron">
+		<h1>Oh boy, a server error!  You broke it!!</h1>
+		<p>
+			Try going to the <a href="{% url 'home:index' %}">home page</a>.  If you continue to see this message, you are
+			out of luck until the smaaaht guy can fix it.
+		</p>
+	</div>
+{% endblock %}

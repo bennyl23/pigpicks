@@ -34,7 +34,10 @@
 					<span class="glyphicon glyphicon-exclamation-sign"></span> = Perfect Week
 				</p>
 				<p>
-					<strong>MOC</strong> = Margin of Coverage
+					<strong>BB</strong> = Best Bet Margin of Coverage
+				</p>
+				<p>
+					<strong>MOC</strong> = Total Margin of Coverage
 				</p>
 			</div>
 			<div class="table-responsive">
@@ -43,6 +46,7 @@
 						<tr>
 							<th class="col-xs-4 cell_border_right">Team</th>
 							<th class="col-xs-2 league_picks_small_column text-center cell_border_right">Wins</th>
+							<th class="col-xs-1 league_picks_small_column text-center cell_border_right">BB</th>
 							<th class="col-xs-1 league_picks_small_column text-center cell_border_right">MOC</th>
 							<th>Picks</th>
 						</tr>
@@ -60,6 +64,11 @@
 												<span class="glyphicon glyphicon-exclamation-sign"></span>
 											{% elif pick.no_losses %}
 												<span class="glyphicon glyphicon-flag"></span>
+											{% endif %}
+										</td>
+										<td class="text-center">
+											{% if pick.no_losses %}
+												{{ pick.best_bet_moc }}
 											{% endif %}
 										</td>
 										<td class="text-center">
