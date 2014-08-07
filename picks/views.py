@@ -73,14 +73,22 @@ def index(request, week_number=0):
     matchups_list = []
     # loop over the matchups and check if the user picked either team in the matchup
     for matchup in matchups:
-        try:
-            pick = Pick.objects.get(user_id_id=request.session['user_id'], matchup_id_id=matchup.matchup_id)
-        except Pick.DoesNotExist:
-            matchup_dict = build_matchup_dict(matchup, 0)
+        # if user made picks and there was an error, select the picks the user just made rather than the picks in the db
+        if request.method == 'POST':
+            try:
+                nfl_team_id_form_post = int(request.POST.get(str(matchup.matchup_id)))
+            except ValueError as e:
+                nfl_team_id_form_post = 0
+            matchup_dict = build_matchup_dict(matchup, nfl_team_id_form_post)
         else:
-            matchup_dict = build_matchup_dict(matchup, pick.nfl_team_id_id)
-        finally:
-            matchups_list.append(matchup_dict)
+            try:
+                pick = Pick.objects.get(user_id_id=request.session['user_id'], matchup_id_id=matchup.matchup_id)
+            except Pick.DoesNotExist:
+                matchup_dict = build_matchup_dict(matchup, 0)
+            else:
+                matchup_dict = build_matchup_dict(matchup, pick.nfl_team_id_id)
+
+        matchups_list.append(matchup_dict)
 
     if not matchups_list:
         page_warning = 'We have not entered matchups for week ' + str(week.week_number) + ' yet.'

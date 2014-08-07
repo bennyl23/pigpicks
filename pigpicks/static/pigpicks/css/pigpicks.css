@@ -77,10 +77,12 @@ body{
 	background-position: 3% 0%;
 }
 .matchup .btn-default.active, .matchup .btn-default:active{
-	background-color: #F7F8E0 !important;
+	background-color: #8D8D8E !important;
+	color: #FFFFFF !important;
 }
 .matchup .btn-default:focus{
-	background-color: #F7F8E0 !important;
+	background-color: #8D8D8E !important;
+	color: #FFFFFF !important;
 }
 .matchup .btn-default:hover{
 	background-color: #EBEBEB
@@ -116,10 +118,11 @@ body{
 	background-repeat: no-repeat;
 }
 .best_bet_btn.active{
-	background-color: #F7F8E0 !important;
+	background-color: #8D8D8E !important;
+	color: #FFFFFF !important;
 }
 .best_bet_row{
-	border: 2px solid #FFFF99;
+	border: 2px solid #338533;
 }
 
 
@@ -157,7 +160,8 @@ body{
 	text-align: center;
 }
 .best_bet_text{
-	color: #B2B247;
+	color: #338533;
+	text-decoration: underline;
 }
 
 
