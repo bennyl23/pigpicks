@@ -44,7 +44,7 @@
 				{% regroup matchups by game_date as matchup_list %}
 				{% for game_date in matchup_list %}
 					<div class="panel panel-default">
-						<div class="panel-heading">
+						<div class="panel-heading picks_date_heading">
 							{{ game_date.grouper|date:"D, m/d/y, f a" }}
 						</div>
 						<div class="panel-body">

@@ -124,6 +124,9 @@ body{
 .best_bet_row{
 	border: 2px solid #338533;
 }
+.picks_date_heading{
+	padding: 5px 15px !important;
+}
 
 
 /* league styles */
