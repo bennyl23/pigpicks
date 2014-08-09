@@ -55,7 +55,7 @@ class Email(models.Model):
 
         text_content = strip_tags(self.email_body)
 
-        user_emails = User.objects.filter(Q(user_email='bennyl23@yahoo.com') | Q(user_email='bennyl23@yahoo.com')).values_list('user_email', flat=True)
+        user_emails = User.objects.filter(Q(user_email='bennyl23@yahoo.com') | Q(user_email='pjlefeb@gmail.com')).values_list('user_email', flat=True)
 
         # set email parameters and send
         from_email = 'Pig Picks Five<ben@pigpicksfive.com>'
