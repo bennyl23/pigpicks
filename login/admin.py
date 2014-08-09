@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db import models
 from login.models import User
 from django.forms import TextInput
+from login.models import Email
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -15,5 +16,10 @@ class UserAdmin(admin.ModelAdmin):
     }
 
 
+class EmailAdmin(admin.ModelAdmin):
+    fields = ['email_subject', 'email_body']
+
+
 # Register your models here.
 admin.site.register(User, UserAdmin)
+admin.site.register(Email, EmailAdmin)

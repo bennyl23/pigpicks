@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
-from django.core.signing import Signer
+from tinymce.models import HTMLField
+import datetime
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from django.utils.html import strip_tags
+from django.db.models import Q
 
 
 class User(models.Model):
@@ -28,5 +34,34 @@ class User(models.Model):
         self.user_password = hashed_password
 
         super(User, self).save(*args, **kwargs)
+
+
+class Email(models.Model):
+    email_id = models.AutoField(primary_key=True)
+    email_date = models.DateTimeField(editable=False)
+    email_subject = models.CharField(max_length=255)
+    email_body = HTMLField()
+
+    class Meta:
+        db_table = 'email_t'
+
+    def __unicode__(self):
+        return unicode(self.email_subject)
+
+    def save(self, *args, **kwargs):
+        self.email_date = datetime.datetime.now()
+
+        super(Email, self).save(*args, **kwargs)
+
+        text_content = strip_tags(self.email_body)
+
+        user_emails = User.objects.filter(Q(user_email='bennyl23@yahoo.com') | Q(user_email='bennyl23@yahoo.com')).values_list('user_email', flat=True)
+
+        # set email parameters and send
+        from_email = 'Pig Picks Five<ben@pigpicksfive.com>'
+        to_emails = 'bennyl23@yahoo.com'
+        email_msg = EmailMultiAlternatives(self.email_subject, text_content, from_email, user_emails)
+        email_msg.attach_alternative(self.email_body, "text/html")
+        email_msg.send()
 
 
