@@ -43,7 +43,7 @@
 				<input type="hidden" name="week_number" id="week_number" value="{{ week.week_number }}">
 				{% regroup matchups by game_date as matchup_list %}
 				{% for game_date in matchup_list %}
-					<div class="panel panel-default">
+					<div class="panel panel-default picks_schedule_panel">
 						<div class="panel-heading picks_date_heading">
 							{{ game_date.grouper|date:"D, m/d/y, f a" }}
 						</div>
@@ -98,7 +98,7 @@
 					</div>
 				{% endfor %}
 				{% if lock_picks == False %}
-					<div style="margin:10px 0 10px 0">
+					<div style="margin:20px 0 10px 0">
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Continue</button>
 					</div>
 				{% endif %}

@@ -127,6 +127,9 @@ body{
 .picks_date_heading{
 	padding: 5px 15px !important;
 }
+.picks_schedule_panel{
+	margin-bottom: 0px !important;
+}
 
 
 /* league styles */
