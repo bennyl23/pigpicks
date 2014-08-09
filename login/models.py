@@ -18,7 +18,7 @@ class User(models.Model):
     user_n = models.CharField(max_length=15, null=True, blank=True)
     user_af1 = models.CharField(max_length=15, null=True, blank=True)
     user_af2 = models.CharField(max_length=15, null=True, blank=True)
-    user_referring_email = models.EmailField(max_length=100)
+    user_referring_email = models.EmailField(max_length=100, blank=True)
     user_reset_password = models.BooleanField(default=False)
     user_paid_ben = models.BooleanField(default=False)
     user_paid_ron = models.BooleanField(default=False)
