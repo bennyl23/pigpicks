@@ -55,10 +55,13 @@ class Email(models.Model):
 
         # set email parameters and send
         from_email = 'Pig Picks Five<ben@pigpicksfive.com>'
-        user_emails = User.objects.all().values_list('user_email', flat=True)
+        #user_emails = User.objects.all().values_list('user_email', flat=True)
+        user_emails = User.objects.filter(Q(user_email='bennyl23@yahoo.com') | Q(user_email='benlefebvre33@gmail.com')).values_list('user_email', flat=True)
         text_content = strip_tags(self.email_body)
-        email_msg = EmailMultiAlternatives(self.email_subject, text_content, from_email, user_emails)
-        email_msg.attach_alternative(self.email_body, "text/html")
-        email_msg.send()
+
+        for user_email in user_emails:
+            email_msg = EmailMultiAlternatives(self.email_subject, text_content, from_email, [user_email])
+            email_msg.attach_alternative(self.email_body, "text/html")
+            email_msg.send()
 
 
