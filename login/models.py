@@ -13,7 +13,7 @@ class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_email = models.EmailField(max_length=100)
     user_team_name = models.CharField(max_length=25)
-    user_password = models.CharField(max_length=60, editable=False)
+    user_password = models.CharField(max_length=128, editable=False)
     user_paid = models.BooleanField(default=False)
     user_n = models.CharField(max_length=15, null=True, blank=True)
     user_af1 = models.CharField(max_length=15, null=True, blank=True)
@@ -29,11 +29,8 @@ class User(models.Model):
     def __unicode__(self):
         return unicode(self.user_team_name + ', ' + self.user_email)
 
-    def save(self, *args, **kwargs):
-        hashed_password = make_password(self.user_password)
-        self.user_password = hashed_password
-
-        super(User, self).save(*args, **kwargs)
+    def hash_password(self):
+        return make_password(self.user_password)
 
 
 class Email(models.Model):

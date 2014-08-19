@@ -53,9 +53,9 @@ def index(request, session_code=None):
 
 def register(request):
     if request.method == 'POST':
-        # Get the bound login form
+        # Get the bound register form
         form = forms.RegisterForm(request.POST)
-        # Validate the login form
+        # Validate the register form
         if form.is_valid():
             validate_new_password_response = validate_new_password(form.cleaned_data['user_password'], form.cleaned_data['user_password_again'])
             if not validate_new_password_response['successful']:
@@ -70,6 +70,7 @@ def register(request):
                 user_team_name = form.cleaned_data['user_team_name'],
                 user_referring_email = form.cleaned_data['user_referring_email']
             )
+            new_user.user_password = new_user.hash_password()
             try:
                 new_user.full_clean()
             except ValidationError as e:
@@ -117,6 +118,7 @@ def forgot_password(request):
 
             # update the user with the new temp password and set their reset password flag
             user.user_password = user_temp_password
+            user.user_password = user.hash_password()
             user.user_reset_password = True
             user.save()
 
@@ -153,6 +155,7 @@ def reset_password(request):
                     else:
                         user = User.objects.get(user_id=request.session['user_id_to_reset'])
                     user.user_password = form.cleaned_data['user_password']
+                    user.user_password = user.hash_password()
                     user.user_reset_password = False
                     user.save()
                     # put the user_id into session
