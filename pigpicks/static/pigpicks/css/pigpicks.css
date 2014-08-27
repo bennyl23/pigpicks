@@ -26,6 +26,11 @@ body{
 	font-size: 38px;
 	line-height: 1.33
 }
+#pigpicks_brand{
+	background: url('../images/pig_picks_logo.png') no-repeat;
+	height: 50px;
+	width: 100px;
+}
 
 /* Home Styles */
 .team_bg_img{
