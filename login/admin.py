@@ -14,6 +14,7 @@ class UserAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size':'10'})}
     }
+    list_per_page = 1000
 
 
 class EmailAdmin(admin.ModelAdmin):
