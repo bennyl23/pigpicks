@@ -15,22 +15,28 @@
 						{{ page_error }}
 					</div>
 				{% endif %}
-			    {% for field in form %}
-			    	<div class="form-group {% if field.errors %}has-error{% endif %}">
-			    		{{ field.label_tag }}
-			       		{{ field }}
-						{% for error in field.errors %}
-							<ul class="text-danger" style="padding-left:0px">{{ error }}</ul>
-						{% endfor %}
-			       	</div>
-			    {% endfor %}
-			    <button class="btn btn-lg btn-default pull-left" type="button" onclick="javascript:window.location='../'">
-			    	Cancel
-			    </button>
-				<button class="btn btn-lg btn-primary pull-right" type="submit">
-					Register
-					<span class="glyphicon glyphicon-chevron-right"></span>
-				</button>
+				{% if registration_locked %}
+					<div class="alert alert-warning page_warning" style="margin-top: 10px;">
+						Registration has ended for this year.  Please try back next year before the season starts.
+					</div>
+				{% else %}
+				    {% for field in form %}
+				    	<div class="form-group {% if field.errors %}has-error{% endif %}">
+				    		{{ field.label_tag }}
+				       		{{ field }}
+							{% for error in field.errors %}
+								<ul class="text-danger" style="padding-left:0px">{{ error }}</ul>
+							{% endfor %}
+				       	</div>
+				    {% endfor %}
+				    <button class="btn btn-lg btn-default pull-left" type="button" onclick="javascript:window.location='../'">
+				    	Cancel
+				    </button>
+					<button class="btn btn-lg btn-primary pull-right" type="submit">
+						Register
+						<span class="glyphicon glyphicon-chevron-right"></span>
+					</button>
+				{% endif %}
 			</form>
 		</div>
 	</div>

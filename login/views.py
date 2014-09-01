@@ -5,6 +5,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
 from django.contrib.auth.models import User as DjangoUser
+from django.utils import timezone
 
 from login.functions import clear_session
 from login.functions import check_reset_password_access
@@ -12,6 +13,7 @@ from login.models import User
 from login import forms
 from login.validators import validate_login
 from login.validators import validate_new_password
+from picks.models import Week
 
 
 def index(request, session_code=None):
@@ -85,9 +87,15 @@ def register(request):
     else:
         form = forms.RegisterForm()
 
+    registration_locked = False
+    week_one = Week.objects.get(week_number=1)
+    if week_one.picks_lock < timezone.now():
+        registration_locked = True
+
     # Renders the register form if it's a new request
     return render(request, 'login/register.html', {
-        'form': form
+        'form': form,
+        'registration_locked': registration_locked
     })
 
 def forgot_password(request):
