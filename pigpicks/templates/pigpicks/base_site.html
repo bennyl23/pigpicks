@@ -15,6 +15,9 @@
 
 			<div class="collapse navbar-collapse" id="pigpicks-navbar">
 				<ul class="nav navbar-nav">
+					<li {% if request.path == '/' or '/home/' in request.path %}class="active"{% endif %}>
+						<a href="{% url 'home:index' %}">Home</a>
+					</li>
 					<li {% if '/picks/' in request.path %}class="active"{% endif %}>
 						<a href="{% url 'picks:index' %}">My Picks</a>
 					</li>

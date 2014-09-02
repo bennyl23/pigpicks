@@ -31,6 +31,15 @@ body{
 	height: 50px;
 	width: 100px;
 }
+.pigpicks_logo_small{
+	background: url('../images/pig_picks_logo_small.png') no-repeat;
+	height: 25px;
+	margin-bottom: 15px;
+	padding: 9px 0 0 50px;
+}
+.header_no_margin{
+	margin: 0;
+}
 
 /* Home Styles */
 .team_bg_img{

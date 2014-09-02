@@ -9,7 +9,9 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 			<form action="{% url 'login:register' %}" method="post" class="form-signin" role="form">{% csrf_token %}
-				<h3>Register New Team</h3>
+				<div class="pigpicks_logo_small">
+					<h4 class="header_no_margin">Register New Team</h4>
+				</div>
 				{% if page_error %}
 					<div class="alert alert-danger page_error" style="margin-top: 10px;">
 						{{ page_error }}
