@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from datetime import timedelta
 
 from login.functions import signed_in_only
 from picks.models import Matchup
@@ -64,7 +65,7 @@ def index(request, week_number=0):
                 week = Week(week_number=week_number)
                 lock_picks = True
 
-        if lock_picks == False and week.picks_lock < timezone.now():
+        if lock_picks == False and (week.picks_lock - timedelta(hours=1)) < timezone.now():
             lock_picks = True
             page_warning = 'Week ' + str(week.week_number) + ' picks have been locked.'
 
@@ -139,7 +140,7 @@ def bestbet(request):
             else:
                 page_error = save_picks_response
 
-    if lock_picks == False and week.picks_lock < timezone.now():
+    if lock_picks == False and (week.picks_lock - timedelta(hours=1)) < timezone.now():
         lock_picks = True
         page_warning = 'Week ' + str(week.week_number) + ' picks have been locked.'
 
