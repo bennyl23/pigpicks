@@ -1,6 +1,7 @@
 from picks.models import Pick
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from datetime import timedelta
 
 def build_matchup_dict(matchup, nfl_team_id):
     """Return a dictionary of a MatchupView, including the nfl_team_id the user selected for that matchup"""
@@ -25,7 +26,7 @@ def save_picks(picks, week_number, user_id):
     response = ''
 
     # first, delete any existing picks for the user (as long as they aren't locked)
-    Pick.objects.filter(matchup_id__week_number=week_number, user_id_id=user_id, matchup_id__game_date__gt=timezone.now()).delete()
+    Pick.objects.filter(matchup_id__week_number=week_number, user_id_id=user_id, matchup_id__game_date__gt=(timezone.now() + timedelta(hours=2))).delete()
     for pick_dict in picks:
         pick = Pick(**pick_dict)
         try:
