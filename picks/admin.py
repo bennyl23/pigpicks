@@ -22,7 +22,7 @@ class MatchupAdmin(admin.ModelAdmin):
 
 
 class PickAdmin(admin.ModelAdmin):
-    list_display = ['user_id', 'matchup_id', 'nfl_team_id', 'won_pick']
+    list_display = ['user_id', 'matchup_id', 'nfl_team_id', 'won_pick', 'best_bet']
     search_fields = ['user_id__user_email', 'user_id__user_team_name']
     list_filter = ['matchup_id__week_number']
 
