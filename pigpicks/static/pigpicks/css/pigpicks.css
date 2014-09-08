@@ -40,6 +40,9 @@ body{
 .header_no_margin{
 	margin: 0;
 }
+.highlight_row{
+	background-color: #FFD1B2 !important;
+}
 
 /* Home Styles */
 .team_bg_img{

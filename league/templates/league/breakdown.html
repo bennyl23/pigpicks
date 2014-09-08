@@ -33,8 +33,8 @@
 				<tbody>
 					{% for team in teams %}
 						<tr>
-							<td>{{ team.nfl_team_location }} {{ team.nfl_team_name }}</td>
-							<td>{{ team.num_picks }}</td>
+							<td {% if team.nfl_team_id in user_picks %}class="highlight_row"{% endif %}>{{ team.nfl_team_location }} {{ team.nfl_team_name }}</td>
+							<td {% if team.nfl_team_id in user_picks %}class="highlight_row"{% endif %}>{{ team.num_picks }}</td>
 						</tr>
 					{% endfor %}
 				</tbody>

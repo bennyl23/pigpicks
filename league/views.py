@@ -66,6 +66,7 @@ def breakdown(request, week_number=0):
         page_warning = 'The breakdown will show on ' + str(week.picks_lock.strftime('%A, %b %d at %I:%M %p')) + '.'
 
     teams = WeekBreakdownView.objects.filter(week_number=week.week_number).order_by('-num_picks', 'nfl_team_location', 'nfl_team_name')
+    user_picks = PickView.objects.filter(week_number=week.week_number, user_id=request.session['user_id']).values_list('nfl_team_id', flat=True)
 
     return render(request, 'league/breakdown.html',{
         'request': request,
@@ -74,7 +75,8 @@ def breakdown(request, week_number=0):
         'session_user_id': request.session['user_id'],
         'lock_picks': lock_picks,
         'page_warning': page_warning,
-        'teams': teams
+        'teams': teams,
+        'user_picks': user_picks
     })
 
 @signed_in_only
@@ -85,6 +87,7 @@ def standings(request):
     return render(request, 'league/standings.html',{
         'request': request,
         'weeks': weeks,
-        'standings': standings_list
+        'standings': standings_list,
+        'session_user_id': request.session['user_id']
     })
 
