@@ -21,7 +21,7 @@
 			{% regroup standings by user_team_name as standings_list %}
 			{% for user_team_name in standings_list %}
 				<tr>
-					<td {% if user_team_name.list.0.user_id == session_user_id %}class="highlight_row"{% endif %}>{{ user_team_name.list.0.position }}</td>
+					<td class="text-center {% if user_team_name.list.0.user_id == session_user_id %}highlight_row{% endif %}">{{ user_team_name.list.0.position }}</td>
 					<td {% if user_team_name.list.0.user_id == session_user_id %}class="highlight_row"{% endif %}>{{ user_team_name.grouper }}</td>
 					<td class="text-center {% if user_team_name.list.0.user_id == session_user_id %}highlight_row{% endif %}">{{ user_team_name.list.0.total_wins }}</td>
 					<!-- weeks only visible on large devices -->
