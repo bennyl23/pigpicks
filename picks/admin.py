@@ -16,7 +16,7 @@ class NFLTeamAdmin(admin.ModelAdmin):
 
 
 class MatchupAdmin(admin.ModelAdmin):
-    list_display = ['matchup_desc', 'game_date', 'spread', 'home_team_id', 'home_team_score', 'away_team_id', 'away_team_score', 'matchup_completed']
+    list_display = ['matchup_desc', 'game_date', 'spread', 'away_team_id', 'away_team_score', 'home_team_id', 'home_team_score', 'matchup_completed']
     list_filter = ['week_number']
     list_editable = ['home_team_score', 'away_team_score', 'matchup_completed']
 
