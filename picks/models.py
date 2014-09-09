@@ -132,11 +132,11 @@ class Matchup(models.Model):
     matchup_id = models.AutoField(primary_key=True)
     week_number = models.ForeignKey('Week', db_column='week_number')
     game_date = models.DateTimeField()
-    home_team_id = models.ForeignKey('NFLTeam', related_name='matchup_home_team_id', db_column='home_team_id')
     away_team_id = models.ForeignKey('NFLTeam', related_name='matchup_away_team_id', db_column='away_team_id')
+    home_team_id = models.ForeignKey('NFLTeam', related_name='matchup_home_team_id', db_column='home_team_id')
     spread = models.FloatField()
-    home_team_score = models.PositiveSmallIntegerField(default=0, blank=True)
     away_team_score = models.PositiveSmallIntegerField(default=0, blank=True)
+    home_team_score = models.PositiveSmallIntegerField(default=0, blank=True)
     matchup_completed = models.BooleanField(default=False)
 
     class Meta:
