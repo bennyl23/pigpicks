@@ -29,7 +29,7 @@
 					</div>
 					<div class="panel-body">
 						{% for pick in picks %}
-							<div class="row {% cycle 'row_odd' 'row_even' %}">
+							<div class="row {% cycle 'row_odd' 'row_even' %}" style="padding-top:5px;">
 								<div class="col-xs-3 col-sm-1 home_pick_text">
 									{% if pick.matchup_completed %}
 										{% if pick.won_pick %}
@@ -62,7 +62,7 @@
 								{% endif %}
 							</div>
 
-								<div class="row {% cycle 'row_odd' 'row_even' %}">
+								<div class="row {% cycle 'row_odd' 'row_even' %}" style="padding-bottom:5px;">
 									{% if pick.matchup_completed %}
 										<div class="col-xs-3 col-sm-1"></div>
 										<div class="col-xs-2 col-sm-1 game_score">
