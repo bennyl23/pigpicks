@@ -8,10 +8,18 @@ from home.models import BlogEntry
 
 
 @signed_in_only
-def index(request):
+def index(request, week_number=0):
     page_warning = ''
-    week = Week.objects.current_week()
+    num_weeks = Week.objects.count()
+
+    try:
+        week = Week.objects.get(week_number=week_number)
+    except Week.DoesNotExist:
+        week = Week.objects.current_week()
+
     picks = PickView.objects.filter(user_id=request.session['user_id'], week_number=week.week_number)
+
+
     blog_entries = BlogEntry.objects.all().order_by('-entry_date')
     if not picks:
         page_warning = 'You have not made your picks for week ' + str(week.week_number) + ' yet.'
@@ -21,6 +29,7 @@ def index(request):
         'request': request,
         'week': week,
         'picks': picks,
-        'blog_entries': blog_entries
+        'blog_entries': blog_entries,
+        'num_weeks': num_weeks
     })
 
