@@ -61,20 +61,18 @@
 									<div class="col-xs-2 col-sm-1 home_pick_text">{{ pick.home_team_location_short|upper }}</div>
 								{% endif %}
 							</div>
-
-								<div class="row {% cycle 'row_odd' 'row_even' %}" style="padding-bottom:5px;">
-									{% if pick.matchup_completed %}
-										<div class="col-xs-3 col-sm-1"></div>
-										<div class="col-xs-2 col-sm-1 game_score">
-											{% if pick.nfl_team_id == pick.home_team_id %}
-												{{ pick.home_team_score }}-{{ pick.away_team_score }}
-											{% else %}
-												{{ pick.away_team_score }}-{{ pick.home_team_score }}
-											{% endif %}
-										</div>
-									{% endif %}
-								</div>
-
+							<div class="row {% cycle 'row_odd' 'row_even' %}" style="padding-bottom:5px;">
+								{% if pick.matchup_completed %}
+									<div class="col-xs-3 col-sm-1"></div>
+									<div class="col-xs-2 col-sm-1 game_score">
+										{% if pick.nfl_team_id == pick.home_team_id %}
+											{{ pick.home_team_score }}-{{ pick.away_team_score }}
+										{% else %}
+											{{ pick.away_team_score }}-{{ pick.home_team_score }}
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
 						{% endfor %}
 					</div>
 					<div class="GNF_help">GNF - Game Not Finished</div>
