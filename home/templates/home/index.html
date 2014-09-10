@@ -5,6 +5,19 @@
 {% block content %}
 	<div class="container">
 		<div class="row">
+			<ul class="pagination" style="margin:20px 0 0 0;">
+				{% if week.week_number|add:"0" > 1 %}
+					<li>
+						<a href="/home/{{ week.week_number|add:"-1" }}/">&laquo;</a>
+					</li>
+				{% endif %}
+				<li><span>Week {{ week.week_number }}</span></li>
+				{% if week.week_number|add:"0" < num_weeks %}
+					<li>
+						<a href="/home/{{ week.week_number|add:"1" }}/">&raquo;</a>
+					</li>
+				{% endif %}
+			</ul>
 			{% if page_warning %}
 				<div class="alert alert-warning page_warning" style="margin-top: 10px;">
 					{{ page_warning }}
