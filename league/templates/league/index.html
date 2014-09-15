@@ -40,6 +40,11 @@
 					<strong>MOC</strong> = Total Margin of Coverage
 				</p>
 			</div>
+			{% if at_least_one_matchup_finished %}
+				<div style="margin-bottom:5px;">
+					Week {{ week.week_number }} Win Rate: <span style="font-weight:bold;font-size:18px;">{{ league_win_percentage }}%</span>
+				</div>
+			{% endif %}
 			<div class="table-responsive">
 				<table id="league_picks_table" class="table table-condensed table-striped">
 					<thead>

@@ -30,15 +30,26 @@ def index(request, week_number=0):
         lock_picks = True
 
     picks = PickView.objects.filter(week_number=week.week_number).order_by('user_team_name', 'game_date', 'nfl_team_id')
+
+    at_least_one_matchup_finished = False
+    if picks.filter(matchup_completed=True).exists():
+        at_least_one_matchup_finished = True
+
+    league_win_percentage = 0.0
+
     picks_list = build_league_picks_list(picks)
     if not picks.exists():
         page_warning = 'There are no picks for week ' + str(week.week_number) + ' yet.'
+    else:
+        league_win_percentage = round((float(picks.filter(won_pick=True).count()) / float(picks.count())) * 100, 1)
 
     return render(request, 'league/index.html',{
         'request': request,
         'week': week,
         'num_weeks': num_weeks,
         'picks': picks_list,
+        'league_win_percentage': league_win_percentage,
+        'at_least_one_matchup_finished': at_least_one_matchup_finished,
         'session_user_id': request.session['user_id'],
         'lock_picks': lock_picks,
         'page_warning': page_warning
