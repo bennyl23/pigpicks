@@ -2,6 +2,8 @@ from picks.models import Pick
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from datetime import timedelta
+from picks.models_helpers import calc_winner_loser
+
 
 def build_matchup_dict(matchup, nfl_team_id):
     """Return a dictionary of a MatchupView, including the nfl_team_id the user selected for that matchup"""
@@ -16,10 +18,15 @@ def build_matchup_dict(matchup, nfl_team_id):
     matchup_dict['home_team_name'] = matchup.home_team_name
     matchup_dict['home_team_location'] = matchup.home_team_location
     matchup_dict['home_team_location_short'] = matchup.home_team_location_short
+    matchup_dict['home_team_score'] = matchup.home_team_score
     matchup_dict['away_team_id'] = matchup.away_team_id
     matchup_dict['away_team_name'] = matchup.away_team_name
     matchup_dict['away_team_location'] = matchup.away_team_location
     matchup_dict['away_team_location_short'] = matchup.away_team_location_short
+    matchup_dict['away_team_score'] = matchup.away_team_score
+    matchup_dict['matchup_completed'] = matchup.matchup_completed
+    game_result_dict = calc_winner_loser(matchup)
+    matchup_dict['winning_nfl_team_id'] = game_result_dict['winning_nfl_team_id']
     return matchup_dict
 
 def save_picks(picks, week_number, user_id):

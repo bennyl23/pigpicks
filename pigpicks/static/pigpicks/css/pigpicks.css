@@ -153,6 +153,10 @@ body{
 .picks_schedule_panel{
 	margin-bottom: 0px !important;
 }
+.winning_score{
+	color: #338533;
+	font-weight: bold;
+}
 
 
 /* league styles */
