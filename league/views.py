@@ -40,7 +40,7 @@ def index(request, week_number=0):
     picks_list = build_league_picks_list(picks)
     if not picks.exists():
         page_warning = 'There are no picks for week ' + str(week.week_number) + ' yet.'
-    else:
+    elif at_least_one_matchup_finished:
         league_win_percentage = round((float(picks.filter(won_pick=True).count()) / float(picks.filter(matchup_completed=True).count())) * 100, 1)
 
     return render(request, 'league/index.html',{
