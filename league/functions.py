@@ -52,29 +52,31 @@ def build_standings_list():
         standings_dict['user_id'] = user_week_result.user_id
         standings_dict['user_team_name'] = user_week_result.user_team_name
         standings_dict['week_number'] = user_week_result.week_number
-        week_wins = user_week_result.pick_wins
-        if week_wins == None:
-            week_wins = 0
-        standings_dict['week_wins'] = week_wins
-        total_wins = StandingsView.objects.filter(user_id=user_week_result.user_id).aggregate(Sum('pick_wins')).get('pick_wins__sum')
-        if total_wins == None:
-            total_wins = 0
+        week_points = user_week_result.week_points
+        if week_points == None:
+            week_points = 0
+        standings_dict['week_points'] = week_points
+        total_wins = PickView.objects.filter(user_id=user_week_result.user_id, won_pick=True).count()
         standings_dict['total_wins'] = total_wins
+        total_points = StandingsView.objects.filter(user_id=user_week_result.user_id).aggregate(Sum('week_points')).get('week_points__sum')
+        if total_points == None:
+            total_points = 0
+        standings_dict['total_points'] = total_points
         standings_dict['position'] = ''
         standings_list.append(standings_dict)
 
-    standings_list = sorted(standings_list, key=itemgetter('total_wins'), reverse=True)
+    standings_list = sorted(standings_list, key=itemgetter('total_points'), reverse=True)
 
     # set the standings position
     position_count = 0
-    last_total_wins = ''
+    last_total_points = ''
     for standings_dict in standings_list:
-        if last_total_wins == '':
+        if last_total_points == '':
             position_count += 1
-        elif last_total_wins > standings_dict['total_wins']:
+        elif last_total_points > standings_dict['total_points']:
             position_count += 1
         standings_dict['position'] = position_count
-        last_total_wins = standings_dict['total_wins']
+        last_total_points = standings_dict['total_points']
 
     return standings_list
 

@@ -7,8 +7,9 @@
 		<thead>
 			<tr>
 				<th class="col-xs-1"></th>
-				<th class="col-xs-6 col-lg-3 cell_border_right">Team</th>
-				<th class="col-xs-5 col-lg-1 cell_border_right text-center">Points</th>
+				<th class="col-xs-5 col-lg-2 cell_border_right">Team</th>
+				<th class="col-xs-3 col-lg-1 cell_border_right text-center">Points</th>
+				<th class="col-xs-3 col-lg-1 cell_border_right text-center">Wins</th>
 				<!-- weeks only visible on large devices -->
 				<th class="visible-lg col-lg-7">
 					{% for week in weeks %}
@@ -23,11 +24,12 @@
 				<tr>
 					<td class="text-center {% if user_team_name.list.0.user_id == session_user_id %}highlight_row{% endif %}">{{ user_team_name.list.0.position }}</td>
 					<td {% if user_team_name.list.0.user_id == session_user_id %}class="highlight_row"{% endif %}>{{ user_team_name.grouper }}</td>
+					<td class="text-center {% if user_team_name.list.0.user_id == session_user_id %}highlight_row{% endif %}">{{ user_team_name.list.0.total_points }}</td>
 					<td class="text-center {% if user_team_name.list.0.user_id == session_user_id %}highlight_row{% endif %}">{{ user_team_name.list.0.total_wins }}</td>
 					<!-- weeks only visible on large devices -->
 					<td class="visible-lg {% if user_team_name.list.0.user_id == session_user_id %}highlight_row{% endif %}">
 						{% for user_week_result in user_team_name.list %}
-							<div class="standings_user_week_result">{{ user_week_result.week_wins }}</div>
+							<div class="standings_user_week_result">{{ user_week_result.week_points }}</div>
 						{% endfor %}
 					</td>
 				</tr>

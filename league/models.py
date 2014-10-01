@@ -28,7 +28,7 @@ class StandingsView(models.Model):
     user_id = models.IntegerField(primary_key=True)
     user_team_name = models.CharField(max_length=15)
     week_number = models.PositiveSmallIntegerField()
-    pick_wins = models.PositiveSmallIntegerField()
+    week_points = models.PositiveSmallIntegerField()
 
     class Meta:
         managed = False

@@ -39,10 +39,10 @@ $( document ).ready(function() {
         "bAutoWidth": false,
 		"bProcessing": true,
 		"aaSorting": [[ 2, "desc"]],
-		"aoColumns": [null, null, null, null],
+		"aoColumns": [null, null, null, null, null],
 		"aoColumnDefs": [{
 			'bSortable': false,
-			'aTargets': [0,3]
+			'aTargets': [0,4]
 		}]
 	});
 
