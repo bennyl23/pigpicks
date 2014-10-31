@@ -106,6 +106,9 @@ class Week(models.Model):
     week_end = models.DateTimeField()
     picks_lock = models.DateTimeField()
     lines_entered = models.BooleanField(default=False)
+    winner_id = models.ForeignKey('login.User', related_name='winner_user_id', db_column='winner_id', blank=True, null=True)
+    payee_id = models.ForeignKey('login.User', related_name='payee_user_id', db_column='payee_id', blank=True, null=True, limit_choices_to=(Q(user_email='bennyl23@yahoo.com') | Q(user_email='ronendo@comcast.net')))
+    tip_amount = models.FloatField(default=0);
     objects = WeeksManager()
 
     class Meta:

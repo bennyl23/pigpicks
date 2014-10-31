@@ -7,7 +7,7 @@ from picks.models import Pick
 
 
 class WeekAdmin(admin.ModelAdmin):
-    list_display = ['week_number', 'week_start', 'week_end', 'picks_lock', 'lines_entered']
+    list_display = ['week_number', 'week_start', 'week_end', 'picks_lock', 'lines_entered', 'winner_id', 'tip_amount', 'payee_id']
     list_editable = ['lines_entered']
 
 
