@@ -69,13 +69,21 @@ def build_standings_list():
 
     # set the standings position
     position_count = 0
+    last_user_id = ''
+    total_count = 0
     last_total_points = ''
     for standings_dict in standings_list:
+
+        if last_user_id != standings_dict['user_id']:
+            total_count += 1
+
         if last_total_points == '':
             position_count += 1
         elif last_total_points > standings_dict['total_points']:
-            position_count += 1
+            position_count = total_count
+
         standings_dict['position'] = position_count
+        last_user_id = standings_dict['user_id']
         last_total_points = standings_dict['total_points']
 
     return standings_list
