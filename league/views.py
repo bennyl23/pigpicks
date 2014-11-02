@@ -26,7 +26,7 @@ def index(request, week_number=0):
             week = Week(week_number=week_number)
             lock_picks = True
 
-    if lock_picks == False and (week.picks_lock - timedelta(hours=1)) < timezone.now():
+    if lock_picks == False and (week.picks_lock < timezone.now()):
         lock_picks = True
 
     picks = PickView.objects.filter(week_number=week.week_number).order_by('user_team_name', 'game_date', 'nfl_team_id')
@@ -71,7 +71,7 @@ def breakdown(request, week_number=0):
             week = Week(week_number=week_number)
             lock_picks = True
 
-    if lock_picks == False and (week.picks_lock - timedelta(hours=1)) < timezone.now():
+    if lock_picks == False and (week.picks_lock < timezone.now()):
         lock_picks = True
     else:
         page_warning = 'The breakdown will show on ' + str(week.picks_lock.strftime('%A, %b %d at %I:%M %p')) + '.'

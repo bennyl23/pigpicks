@@ -152,8 +152,8 @@ class Matchup(models.Model):
         return 'Week ' + str(self.week_number) + ': ' + str(self.away_team_id) + ' @ ' + str(self.home_team_id)
 
     def pick_locked(self):
-        # note: subtract 2 hours because server is central time zone and game locks 1 hour before game date
-        if (self.game_date - timedelta(hours=2)) <= timezone.now():
+        # note: subtract 1 hour
+        if (self.game_date - timedelta(hours=1)) <= timezone.now():
             return True
 
         return False
@@ -228,8 +228,8 @@ class MatchupView(models.Model):
         db_table = 'matchup_v'
 
     def pick_locked(self):
-        # note: subtract 2 hours because server is central time zone and game locks 1 hour before game date
-        if (self.game_date - timedelta(hours=2)) <= timezone.now():
+        # note: subtract 1 hour
+        if (self.game_date - timedelta(hours=1)) <= timezone.now():
             return True
 
         return False
@@ -265,8 +265,8 @@ class PickView(models.Model):
         db_table = 'picks_v'
 
     def pick_locked(self):
-        # note: subtract 2 hours because server is central time zone and game locks 1 hour before game date
-        if (self.game_date - timedelta(hours=2)) <= timezone.now():
+        # note: subtract 1 hour
+        if (self.game_date - timedelta(hours=1)) <= timezone.now():
             return True
 
         return False

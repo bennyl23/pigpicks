@@ -33,8 +33,8 @@ def save_picks(picks, week_number, user_id):
     response = ''
 
     # first, delete any existing picks for the user (as long as they aren't locked)
-    # note: adding 2 hours to the timezone because server is central time and picks lock 1 hour before game date
-    Pick.objects.filter(matchup_id__week_number=week_number, user_id_id=user_id, matchup_id__game_date__gte=(timezone.now() + timedelta(hours=2))).delete()
+    # note: adding 1 hour to the timezone because picks lock 1 hour before game date
+    Pick.objects.filter(matchup_id__week_number=week_number, user_id_id=user_id, matchup_id__game_date__gte=(timezone.now() + timedelta(hours=1))).delete()
     for pick_dict in picks:
         pick = Pick(**pick_dict)
         try:
