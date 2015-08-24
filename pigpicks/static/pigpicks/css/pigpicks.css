@@ -81,6 +81,7 @@ body{
 	padding: 0;
 	margin: 0;
 	border: 1px solid #B2B2B2;
+	border-radius: 3px;
 }
 .blog_entry_body{
 	padding-top: 10px;
@@ -149,6 +150,7 @@ body{
 }
 .best_bet_row{
 	border: 2px solid #338533;
+	border-radius: 3px;
 }
 .picks_date_heading{
 	padding: 5px 15px !important;
