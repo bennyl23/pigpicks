@@ -59,5 +59,3 @@ class Email(models.Model):
         email_msg = EmailMultiAlternatives(self.email_subject, text_content, from_email, [to_email], bcc_user_emails)
         email_msg.attach_alternative(self.email_body, "text/html")
         email_msg.send()
-
-
