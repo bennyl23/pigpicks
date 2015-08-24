@@ -23,7 +23,7 @@
 					{{ page_warning }}
 				</div>
 			{% else %}
-				<div class="col-xs-12 panel panel-default" style="padding: 0; margin: 0;">
+				<div class="col-xs-12 panel panel-default" style="padding: 0; margin: 0 0 10px 0;">
 					<div class="panel-heading">
 						<h4 class="panel-title">Your week {{ week.week_number }} picks</h4>
 					</div>
@@ -92,8 +92,10 @@
 								{{ blog_entry.entry_date }}
 							</div>
 						</div>
-						<div class="panel-body">
-							{% autoescape off %}{{ blog_entry.entry_body }}{% endautoescape %}
+						<div class="panel-body blog_entry_body">
+							<div class="well" style="border-color:#faebcc;">
+								{% autoescape off %}{{ blog_entry.entry_body }}{% endautoescape %}
+							</div>
 						</div>
 					{% endfor %}
 				</div>

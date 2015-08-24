@@ -52,12 +52,12 @@ class Email(models.Model):
 
         # set email parameters and send
         from_email = 'Pig Picks Five<ben@pigpicksfive.com>'
-        user_emails = User.objects.all().values_list('user_email', flat=True)
+        to_email = 'emails@pigpicksfive.com'
+        bcc_user_emails = User.objects.all().values_list('user_email', flat=True)
         text_content = strip_tags(self.email_body)
 
-        for user_email in user_emails:
-            email_msg = EmailMultiAlternatives(self.email_subject, text_content, from_email, [user_email])
-            email_msg.attach_alternative(self.email_body, "text/html")
-            email_msg.send()
+        email_msg = EmailMultiAlternatives(self.email_subject, text_content, from_email, [to_email], bcc_user_emails)
+        email_msg.attach_alternative(self.email_body, "text/html")
+        email_msg.send()
 
 

@@ -82,6 +82,9 @@ body{
 	margin: 0;
 	border: 1px solid #B2B2B2;
 }
+.blog_entry_body {
+	padding-top: 10px;
+}
 
 /* Picks Styles */
 .matchup .btn{
