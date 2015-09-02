@@ -51,6 +51,7 @@
 							{% for matchup in game_date.list %}
 								<input type="hidden" name="{{ matchup.matchup_id }}" id="{{ matchup.matchup_id }}" value="{{ matchup.nfl_team_id }}">
 								<div class="row matchup {% cycle 'row_odd' 'row_even' %}">
+									{{ matchup.timenow }}
 									{% if matchup.spread < 0 %}
 										<!-- home favorite -->
 										<div class="col-xs-5">
