@@ -25,6 +25,7 @@ def build_matchup_dict(matchup, nfl_team_id):
     matchup_dict['away_team_location_short'] = matchup.away_team_location_short
     matchup_dict['away_team_score'] = matchup.away_team_score
     matchup_dict['matchup_completed'] = matchup.matchup_completed
+    matchup_dict['timenow'] = timezone.now()
     game_result_dict = calc_winner_loser(matchup)
     matchup_dict['winning_nfl_team_id'] = game_result_dict['winning_nfl_team_id']
     return matchup_dict
