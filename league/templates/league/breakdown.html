@@ -19,7 +19,11 @@
 		</ul>
 		{% if page_warning != '' %}
 			<div class="alert alert-warning page_warning" style="margin-top: 10px;">
-				{{ page_warning }}
+				{% if week_locked %}
+					The breakdown will show on {{ week.picks_lock|date:"l, F j, h:i A" }}
+				{% else %}
+					{{ page_warning }}
+				{% endif %}
 			</div>
 		{% endif %}
 		{% if lock_picks %}
