@@ -114,7 +114,11 @@ def bestbet(request):
     page_warning = ''
     page_error = ''
 
-    if request.method == 'POST':
+    if lock_picks == False and (week.picks_lock < timezone.now()):
+        lock_picks = True
+        page_warning = 'Week ' + str(week.week_number) + ' picks have been locked.'
+
+    if request.method == 'POST' and lock_picks == False:
         best_bet_field_val = request.POST.get('bestbet')
         if not best_bet_field_val:
             page_error = 'Please select your best bet.'
@@ -139,10 +143,6 @@ def bestbet(request):
                 return HttpResponseRedirect('/picks/confirmation/')
             else:
                 page_error = save_picks_response
-
-    if lock_picks == False and (week.picks_lock < timezone.now()):
-        lock_picks = True
-        page_warning = 'Week ' + str(week.week_number) + ' picks have been locked.'
 
     matchups_list = []
 
