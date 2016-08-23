@@ -300,6 +300,12 @@ body{
 .kc_small{
 	background-image: url('../images/team_logos/chiefs_small.png');
 }
+.la, .btn.la {
+	background-image: url('../images/team_logos/rams.png');
+}
+.la_small{
+	background-image: url('../images/team_logos/rams_small.png');
+}
 .mia, .btn.mia {
 	background-image: url('../images/team_logos/dolphins.png');
 }
@@ -371,12 +377,6 @@ body{
 }
 .sf_small{
 	background-image: url('../images/team_logos/49ers_small.png');
-}
-.stl, .btn.stl {
-	background-image: url('../images/team_logos/rams.png');
-}
-.stl_small{
-	background-image: url('../images/team_logos/rams_small.png');
 }
 .ten, .btn.ten {
 	background-image: url('../images/team_logos/titans.png');
