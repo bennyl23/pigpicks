@@ -3,21 +3,34 @@
 {% block title %}Pig Picks 5 | Home{% endblock %}
 
 {% block content %}
+
 	<div class="container">
 		<div class="row">
-			<ul class="pagination" style="margin:20px 0 0 0;">
-				{% if week.week_number|add:"0" > 1 %}
-					<li>
-						<a href="/home/{{ week.week_number|add:"-1" }}/">&laquo;</a>
-					</li>
+			<div class="col-xs-6">
+				<ul class="pagination" style="margin:20px 0 0 0;">
+					{% if week.week_number|add:"0" > 1 %}
+						<li>
+							<a href="/home/{{ week.week_number|add:"-1" }}/">&laquo;</a>
+						</li>
+					{% endif %}
+					<li><span>Week {{ week.week_number }}</span></li>
+					{% if week.week_number|add:"0" < num_weeks %}
+						<li>
+							<a href="/home/{{ week.week_number|add:"1" }}/">&raquo;</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="col-xs-6" style="text-align:right; margin:20px 0 0 0;">
+				<span style="font-size:11px;">Your league dues:</span>
+				{% if user.user_paid %}
+					<span style="color:#338533; font-weight:bold;">Paid</span>
+				{% else %}
+					<span style="color:#cc3300; font-weight:bold;">Not Paid</span>
 				{% endif %}
-				<li><span>Week {{ week.week_number }}</span></li>
-				{% if week.week_number|add:"0" < num_weeks %}
-					<li>
-						<a href="/home/{{ week.week_number|add:"1" }}/">&raquo;</a>
-					</li>
-				{% endif %}
-			</ul>
+			</div>
+		</div>
+		<div class="row">
 			{% if page_warning %}
 				<div class="alert alert-warning page_warning" style="margin-top: 10px;">
 					{{ page_warning }}

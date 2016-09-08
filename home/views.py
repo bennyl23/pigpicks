@@ -5,6 +5,7 @@ from login.functions import signed_in_only
 from picks.models import PickView
 from picks.models import Week
 from home.models import BlogEntry
+from login.models import User
 
 
 @signed_in_only
@@ -16,6 +17,8 @@ def index(request, week_number=0):
         week = Week.objects.get(week_number=week_number)
     except Week.DoesNotExist:
         week = Week.objects.current_week()
+
+    user = User.objects.get(user_id=request.session['user_id'])
 
     picks = PickView.objects.filter(user_id=request.session['user_id'], week_number=week.week_number)
 
@@ -30,6 +33,7 @@ def index(request, week_number=0):
         'week': week,
         'picks': picks,
         'blog_entries': blog_entries,
-        'num_weeks': num_weeks
+        'num_weeks': num_weeks,
+        'user': user
     })
 
