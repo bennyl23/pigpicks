@@ -6,7 +6,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-7">
 				<ul class="pagination" style="margin:20px 0 0 0;">
 					{% if week.week_number|add:"0" > 1 %}
 						<li>
@@ -21,8 +21,8 @@
 					{% endif %}
 				</ul>
 			</div>
-			<div class="col-xs-6" style="text-align:right; margin:20px 0 0 0;">
-				<span style="font-size:11px;">Your league dues:</span>
+			<div class="col-xs-5" style="text-align:right; margin:20px 0 0 0;">
+				<span style="font-size:11px;">League dues:</span>
 				{% if user.user_paid %}
 					<span style="color:#338533; font-weight:bold;">Paid</span>
 				{% else %}
