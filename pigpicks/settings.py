@@ -1,4 +1,3 @@
-
 """
 Django settings for pigpicks project.
 
@@ -9,18 +8,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+# SECURITY WARNING: keep the secret key used in production secret!
 with open('/projects/pigpicks/security/variables/secret_key.txt') as secret_key_file:
     SECRET_KEY = secret_key_file.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+INTERNAL_IPS = ['127.0.0.1']
 
 TEMPLATE_DEBUG = True
 
@@ -34,6 +36,9 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'templates')
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
 
 # Application definition
 
@@ -67,17 +72,16 @@ WSGI_APPLICATION = 'pigpicks.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 with open('/projects/pigpicks/security/variables/mysql_pw.txt') as mysql_pw_file:
     MYSQL_PW = mysql_pw_file.read().strip()
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ben_pigpicks',
-        'USER': 'ben',
+        'NAME': 'hacksa5_pigpicks',
+        'USER': 'hacksa5_webuser',
         'PASSWORD': MYSQL_PW,
-        'HOST': '127.0.0.1'
+        'HOST': '127.0.0.1
     }
 }
 
@@ -86,58 +90,47 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'EST'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/projects/pigpicks/pigpicks/pigpicks/static/'
-
+STATIC_ROOT = '/projects/pigpicks/pigpicks/pigpicks/'
 
 # Static files paths
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(__file__), 'static')
 ),
 
-# tinymce settings
-TINYMCE_JS_URL = os.path.join(STATIC_URL, "admin/js/tinymce/tinymce.min.js")
-TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "admin/js/tinymce/")
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': "modern"
-}
-
 # session settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-SESSION_COOKIE_AGE = 120 * 60
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+# session expire at 2 days (in seconds)
+SESSION_COOKIE_AGE =  172800
 
 with open('/projects/pigpicks/security/variables/email_pw.txt') as email_pw_file:
     EMAIL_PW = email_pw_file.read().strip()
 
 # email settings
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.pigpicksfive.com'
+EMAIL_HOST = 'mail.hacksawgolf.com'
 EMAIL_HOST_USER = 'ben@pigpicksfive.com'
 EMAIL_HOST_PASSWORD = EMAIL_PW
-EMAIL_PORT = 26
+EMAIL_PORT = 25
 
-# SSL settings
-# secure proxy SSL header and secure cookies
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-# session expire at browser close
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-# wsgi scheme
-os.environ['wsgi.url_scheme'] = 'https'
-
+# tinymce settings
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "admin/js/tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "admin/js/tinymce/")
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "modern",
+    'plugins': "textcolor,emoticons",
+    'toolbar': "fontselect fontsizeselect | forecolor | bold italic underline strikethrough | emoticons | alignleft aligncenter alignright"
+}
