@@ -3,7 +3,7 @@ import sys
 import site
 
 # Add the site-packages of the chosen virtualenv to work with
-site.addsitedir('~/.virtualenvs/pigpicks/lib/python2.6/site-packages')
+site.addsitedir('~/.virtualenvs/pigpicks/lib/python2.7/site-packages')
 
 # Add the app's directory to the PYTHONPATH
 sys.path.append('/projects/pigpicks/pigpicks')
